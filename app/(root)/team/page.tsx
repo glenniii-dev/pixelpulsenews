@@ -17,13 +17,16 @@ export default function page() {
       {/* DARREN */}
       <TeamMember image="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/darren.png?v=1739814810086" name="Darren" role="Graphic Designer + Admin Secretary" bio="Hi, I'm Darren, a high school student with experience in coding, web design, and graphic design. I'm passionate about technology and plan to pursue a computer science or software engineering career. Outside of tech, I enjoy both playing and watching sports, especially soccer and tennis." />
 
-       {/* LYNN */}
+      {/* RYAN */}
+      <TeamMember image="" name="Ryan" role="Director Of Operations" bio="Hi I’m Ryan! I’m a high school student with a deep history of education in finance. I love seeing the way the finance world works! I aim to pursue a degree in business administration in the future. I’m looking forward to serving on the executive board as the Director Of Operations." />
+
+      {/* LYNN */}
       <TeamMember image="/Lynn.webp" name="Lynn" role="Graphic Design Dept Head" bio="Hi! My name is Lynn and I'm a high school senior. I want to pursue civil engineering and multi-media design in college. In my free time, I love painting, listening to music, going to the city, and hanging out with friends and family!" />
 
-       {/* HARSITH */}
+      {/* HARSITH */}
       <TeamMember image="/Harsith.webp" name="Harsith" role="Communication secretary & Newsletter director" bio="Hey there! I'm Harsith, a high school student super passionate about space, coffee, and badminton. I'm a STEM student and I love tinkering with projects and solving problems, and I'm excited about exploring aerospace engineering in the future. Really excited to be a part of this team!" />
 
-       {/* MICHEAL */}
+      {/* MICHEAL */}
       <TeamMember image="" name="Micheal" role="CS/AI Research Lead" bio="My name is Michael! I am currently a junior in high school and 17. I am interested in STEM concepts and how they relate to the real world. My interests include drawing, fashion, golfing, and building wooden models. In the future I aspire to be a chemical engineer, and make an impact on my community through STEM applications." />
 
       {/* BENNY*/}
@@ -43,7 +46,7 @@ export default function page() {
       
       {/* ISHAQ */}
       <TeamMember image="" name="Ishaq" role="Content Writer" bio="Hi everyone, I'm 17 and in Year 13, currently studying for my A-Levels in London. I study Maths, Further Maths, Physics and Computer Science, and after university, I want to go into Software Engineering or A.I, although I may not stay in it forever. Outside of academics, I enjoy playing and watching squash, programming and playing video games." />
-      
+
     </section>
   )
 }
