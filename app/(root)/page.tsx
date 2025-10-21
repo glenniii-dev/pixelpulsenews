@@ -44,8 +44,11 @@ export default function Home() {
           Discover every single one of the passionate minds behind Pixel Pulse!
         </p>
         <div className="flex flex-row flex-wrap w-auto max-width-80 gap-5 justify-center items-center">
+          {/* SOHA */}
           <TeamMember image="https://dzoxjkfkahmyylvgiibw.supabase.co/storage/v1/object/public/team-images/1744584649464-IMG_3289.webp" name="Soha" role="Founder & President" bio="Hi there! I'm Soha, the founder and president of Pixel Pulse. I'm currently pursuing STEM and planning to major in either computer science or data science (still deciding!) at university. I truly hope Pixel Pulse grows into a valuable platform for both STEM students and beyond! I love reading and writing. :)" />
-          <TeamMember image="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/rolleen.jpg?v=1739816415849" name="Rolleen" role="Vice President" bio="I'm Rolleen (pronounced row-lean)! I'm a high school student with a passion for chemistry, looking to pursue Chemical Engineering. I'm a big music nerd but I'm also a debater outside of Pixel Pulse! Glad to be part of this team as the research lead for Chemistry and Physics." />
+          {/* ROLLEEN */}
+          <TeamMember image="/Rollean.webp" name="Rolleen" role="Vice President" bio="Hai my name is Rolleen! I am Pixel Pulse's Vice President and a long-term member. I am very passionate about environmental sciences and hope to pursue environmental engineering and public advocacy in the future. Outside of STEM, I am a big music person, so if you want any music suggestions I am the girl to go to. My favorite music artists consist of Jeff Buckley, Laufey, and Beabadoobee just to name a few! I am so grateful to be part of this team." />
+          {/* DARREN */}
           <TeamMember image="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/darren.png?v=1739814810086" name="Darren" role="Graphic Designer + Admin Secretary" bio="Hi, I'm Darren, a high school student with experience in coding, web design, and graphic design. I'm passionate about technology and plan to pursue a computer science or software engineering career. Outside of tech, I enjoy both playing and watching sports, especially soccer and tennis." />
         </div>
         <Button variant="chambray" size="xl">
