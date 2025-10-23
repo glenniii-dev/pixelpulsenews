@@ -20,11 +20,14 @@ export default function page() {
       {/* RYAN */}
       <TeamMember image="" name="Ryan" role="Director Of Operations" bio="Hi I’m Ryan! I’m a high school student with a deep history of education in finance. I love seeing the way the finance world works! I aim to pursue a degree in business administration in the future. I’m looking forward to serving on the executive board as the Director Of Operations." />
 
-      {/* LYNN */}
-      <TeamMember image="/Lynn.webp" name="Lynn" role="Graphic Design Dept Head" bio="Hi! My name is Lynn and I'm a high school senior. I want to pursue civil engineering and multi-media design in college. In my free time, I love painting, listening to music, going to the city, and hanging out with friends and family!" />
-
       {/* HARSITH */}
       <TeamMember image="/Harsith.webp" name="Harsith" role="Communication secretary & Newsletter director" bio="Hey there! I'm Harsith, a high school student super passionate about space, coffee, and badminton. I'm a STEM student and I love tinkering with projects and solving problems, and I'm excited about exploring aerospace engineering in the future. Really excited to be a part of this team!" />
+
+      {/* GLENN */}
+      <TeamMember image="/glenn.png" name="Glenn" role="Web Development Lead" bio="Hi, I'm Glenn! I'm a web developer passionate about bringing ideas to life through clean, thoughtful design and code. I love creating websites and am always looking for new ways to learn, grow, and challenge myself. Outside of coding, I enjoy experimenting in the kitchen, stargazing, and growing unique plants." />
+
+      {/* LYNN */}
+      <TeamMember image="/Lynn.webp" name="Lynn" role="Graphic Design Dept Head" bio="Hi! My name is Lynn and I'm a high school senior. I want to pursue civil engineering and multi-media design in college. In my free time, I love painting, listening to music, going to the city, and hanging out with friends and family!" />
 
       {/* MICHEAL */}
       <TeamMember image="" name="Micheal" role="CS/AI Research Lead" bio="My name is Michael! I am currently a junior in high school and 17. I am interested in STEM concepts and how they relate to the real world. My interests include drawing, fashion, golfing, and building wooden models. In the future I aspire to be a chemical engineer, and make an impact on my community through STEM applications." />
