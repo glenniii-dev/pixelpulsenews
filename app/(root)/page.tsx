@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-70 min-w-50 w-auto h-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
             <h1 className="text-7xl mb-5">📰</h1>
-            <h3 className="text-2xl font-bold text-shadow-md">Tech Journalism</h3>
+            <h3 className="text-2xl font-bold text-shadow-md">Our Newsletters</h3>
             <p className="text-lg">Stay informed with our cutting-edge coverage of the latest technological advancements, breakthroughs, and industry trends.</p>
           </div>
         </div>
@@ -45,7 +45,7 @@ export default function Home() {
         </p>
         <div className="flex flex-row flex-wrap w-auto max-width-80 gap-5 justify-center items-center">
           {/* SOHA */}
-          <TeamMember image="https://dzoxjkfkahmyylvgiibw.supabase.co/storage/v1/object/public/team-images/1744584649464-IMG_3289.webp" name="Soha" role="Founder & President" bio="Hi there! I'm Soha, the founder and president of Pixel Pulse. I'm currently pursuing STEM and planning to major in either computer science or data science (still deciding!) at university. I truly hope Pixel Pulse grows into a valuable platform for both STEM students and beyond! I love reading and writing. :)" />
+          <TeamMember image="/soha.jpeg" name="Soha" role="Founder & President" bio="Hi there! I'm Soha, the founder and president of Pixel Pulse. I'm currently pursuing STEM and planning to major in either computer science or data science (still deciding!) at university. I truly hope Pixel Pulse grows into a valuable platform for both STEM students and beyond! I love reading and writing. :)" />
           {/* ROLLEEN */}
           <TeamMember image="/Rollean.webp" name="Rolleen" role="Vice President" bio="Hai my name is Rolleen! I am Pixel Pulse's Vice President and a long-term member. I am very passionate about environmental sciences and hope to pursue environmental engineering and public advocacy in the future. Outside of STEM, I am a big music person, so if you want any music suggestions I am the girl to go to. My favorite music artists consist of Jeff Buckley, Laufey, and Beabadoobee just to name a few! I am so grateful to be part of this team." />
           {/* DARREN */}

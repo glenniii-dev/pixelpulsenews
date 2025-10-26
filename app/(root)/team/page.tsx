@@ -9,7 +9,7 @@ export default function page() {
       </div>
 
       {/* SOHA */}
-      <TeamMember image="https://dzoxjkfkahmyylvgiibw.supabase.co/storage/v1/object/public/team-images/1744584649464-IMG_3289.webp" name="Soha" role="Founder & President" bio="Hi there! I'm Soha, the founder and president of Pixel Pulse. I'm currently pursuing STEM and planning to major in either computer science or data science (still deciding!) at university. I truly hope Pixel Pulse grows into a valuable platform for both STEM students and beyond! I love reading and writing. :)" />
+      <TeamMember image="/soha.jpeg" name="Soha" role="Founder & President" bio="Hi there! I'm Soha, the founder and president of Pixel Pulse. I'm currently pursuing STEM and planning to major in either computer science or data science (still deciding!) at university. I truly hope Pixel Pulse grows into a valuable platform for both STEM students and beyond! I love reading and writing. :)" />
       
       {/* ROLLEEN */}
       <TeamMember image="/Rollean.webp" name="Rolleen" role="Vice President" bio="Hai my name is Rolleen! I am Pixel Pulse's Vice President and a long-term member. I am very passionate about environmental sciences and hope to pursue environmental engineering and public advocacy in the future. Outside of STEM, I am a big music person, so if you want any music suggestions I am the girl to go to. My favorite music artists consist of Jeff Buckley, Laufey, and Beabadoobee just to name a few! I am so grateful to be part of this team." />
@@ -29,8 +29,8 @@ export default function page() {
       {/* LYNN */}
       <TeamMember image="/Lynn.webp" name="Lynn" role="Graphic Design Dept Head" bio="Hi! My name is Lynn and I'm a high school senior. I want to pursue civil engineering and multi-media design in college. In my free time, I love painting, listening to music, going to the city, and hanging out with friends and family!" />
 
-      {/* MICHEAL */}
-      <TeamMember image="" name="Micheal" role="CS/AI Research Lead" bio="My name is Michael! I am currently a junior in high school and 17. I am interested in STEM concepts and how they relate to the real world. My interests include drawing, fashion, golfing, and building wooden models. In the future I aspire to be a chemical engineer, and make an impact on my community through STEM applications." />
+      {/* MICHAEL */}
+      <TeamMember image="" name="Michael" role="CS/AI Research Lead" bio="My name is Michael! I am currently a junior in high school and 17. I am interested in STEM concepts and how they relate to the real world. My interests include drawing, fashion, golfing, and building wooden models. In the future I aspire to be a chemical engineer, and make an impact on my community through STEM applications." />
 
       {/* BENNY*/}
       <TeamMember image="/Benny.webp" name="Benny" role="Bio Research Lead" bio="I’m Benny, a 17 year old junior in high school with a strong passion for medicine, biology, and all aspects of STEM. I am also planning to pursue a pre-med track after high school in college. In my free time I enjoy playing tennis, watching sports, and most of all the thrill of different foods."/>
