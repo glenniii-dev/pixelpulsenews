@@ -1,6 +1,6 @@
 "use client";
 import NewsletterCard from "@/components/cards/NewsletterCard";
-import { newsletterItems } from "@/utils/newsletters";
+import newsletterItems from "@/utils/newsletters";
 import { FaNewspaper } from 'react-icons/fa6';
 
 export default function Page() {

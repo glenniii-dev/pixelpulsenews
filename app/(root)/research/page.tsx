@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import ResearchCard from "@/components/cards/ResearchCard";
 import { researchItems, researchFilters } from "@/utils/research";
-import { FaMicroscope } from "react-icons/fa";
 
 export default function Page() {
   const [activeFilter, setActiveFilter] = useState("all");
