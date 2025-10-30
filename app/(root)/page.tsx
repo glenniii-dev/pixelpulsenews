@@ -1,6 +1,7 @@
 import TeamMember from "@/components/cards/TeamMember";
 import { Button } from "@/components/ui/button"
-import { teamMembers } from "@/utils/team";
+import teamMembers from "@/utils/team";
+import type Member from "@/types/Member"
 import Link from "next/link";
 import { FaGraduationCap, FaMicroscope, FaNewspaper } from "react-icons/fa";
 
@@ -46,8 +47,8 @@ export default function Home() {
           Discover every single one of the passionate minds behind Pixel Pulse!
         </p>
         <div className="flex flex-row flex-wrap w-auto max-width-80 gap-5 justify-center items-center">
-          {teamMembers.slice(0, 3).map((member, index) => (
-            <TeamMember key={index} image={member.image} name={member.name} role={member.role} bio={member.bio} />
+          {teamMembers.slice(0, 3).map((member: Member, index: number) => (
+            <TeamMember key={index} {...member} />
           ))}
         </div>
         <Button variant="chambray" size="xl">

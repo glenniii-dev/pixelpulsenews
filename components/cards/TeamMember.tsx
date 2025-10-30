@@ -1,6 +1,7 @@
 import Image from "next/image"
+import type Member from "@/types/Member"
 
-export default function TeamMember({ image, name, role, bio }: { image: string; name: string; role: string; bio: string; }) {
+export default function TeamMember({ image, name, role, bio }: Member) {
 
   return (
     <div className="flex flex-col space-y-3 p-8 items-start bg-(--stardust-white) rounded-lg text-(--silver-lake-blue) max-w-90 min-w-60 w-auto h-135 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">

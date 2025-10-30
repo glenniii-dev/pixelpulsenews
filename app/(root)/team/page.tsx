@@ -1,5 +1,6 @@
 import TeamMember from "@/components/cards/TeamMember";
-import { teamMembers } from "@/utils/team";
+import teamMembers from "@/utils/team";
+import type Member from "@/types/Member";
 
 export default function page() {
   return (
@@ -9,8 +10,8 @@ export default function page() {
         <h3 className="text-lg mb-4">Meet the passionate individuals behind Pixel Pulse. Our diverse team of students and young professionals brings together expertise in STEM research, journalism, design, and technology to create engaging and informative content.</h3>
       </div>
 
-      {teamMembers.map((member, index) => (
-        <TeamMember key={index} image={member.image} name={member.name} role={member.role} bio={member.bio} />
+      {teamMembers.map((member: Member, index: number) => (
+        <TeamMember key={index} {...member} />
       ))}
 
     </section>
