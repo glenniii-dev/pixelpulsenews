@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-linear-90 from-(--rich-black) to-(--chambray) text-(--stardust-white) text-lg flex flex-col max-lg:space-y-12 lg:flex-row flew-wrap justify-between p-4 px-8 py-12">
       <div>
-        <p className="font-extrabold text-2xl text-(--silver-lake-blue) max-md:text-(--silver-lake-blue) mb-3 lg:mb-6">Pixel Pulse News</p>
+        <p className="font-extrabold text-2xl text-(--silver-lake-blue) max-md:text-(--silver-lake-blue) mb-3 lg:mb-6 cursor-pointer">Pixel Pulse News</p>
         <p className="text-(--stardust-white) font-semibold max-w-80 flex flex-wrap">Empowering the next generation through STEM education.</p>
       </div>
       <div>
@@ -19,8 +19,8 @@ export default function Footer() {
       <div>
         <p className="font-extrabold text-2xl text-(--silver-lake-blue) max-md:text-(--silver-lake-blue) mb-3 lg:mb-6">Resources</p>
         <nav className="text-(--stardust-white) flex flex-wrap flex-col space-y-2">
-          <Link href="/" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Blog</Link>
-          <Link href="/" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Documentation</Link>
+          <Link href="/podcasts" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Podcasts</Link>
+          <Link href="/articles" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Articles</Link>
         </nav>
       </div>
       <div>

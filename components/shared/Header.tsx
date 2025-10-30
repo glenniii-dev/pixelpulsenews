@@ -9,17 +9,18 @@ export default function Header() {
 
   return (
     <header className="flex justify-between md:items-center p-4 border-b md:flex-row bg-linear-90 from-(--rich-black) to-(--chambray) text-(--stardust-white) text-lg h-20 px-7 relative z-30 shadow-2xl">
-      <p className="font-extrabold text-3xl text-(--silver-lake-blue) self-center">
+      <Link href="/" className="font-extrabold text-3xl text-(--stardust-white) self-center cursor-pointer">
         Pixel Pulse News
-      </p>
+      </Link>
 
       {/* Desktop Nav */}
-      <nav className="space-x-4 max-md:hidden">
+      <nav className="space-x-4 max-lg:hidden">
         <ul className="flex space-x-8 lg:space-x-12 flex-wrap text-center font-semibold">
-          <Link href="/" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Home</Link>
-          <Link href="/team" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Team</Link>
-          <Link href="/research" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Research</Link>
           <Link href="/newsletters" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Newsletters</Link>
+          <Link href="/research" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Research</Link>
+          <Link href="/articles" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Articles</Link>
+          <Link href="/podcasts" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Podcasts</Link>
+          <Link href="/team" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Team</Link>
           <a href="mailto:pixelpulsenewsletterr@gmail.com" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Contact</a>
         </ul>
       </nav>
@@ -28,7 +29,7 @@ export default function Header() {
       { !open &&
         <button
           onClick={() => setOpen(true)}
-          className={`md:hidden p-2 z-40`}
+          className={`lg:hidden p-2 z-40`}
         >
           <Menu size={28} />
         </button>
@@ -53,18 +54,19 @@ export default function Header() {
           {/* Hamburger / Close Button (Mobile Only) */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden p-2 z-40 mr-6"
+            className="lg:hidden p-2 z-40 mr-6"
           >
             {open ? <X size={28} /> : <Menu size={28} />}
           </button>
 
         </div>
         <ul className="flex flex-col gap-6 text-lg font-semibold">
-          <Link href="/" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Home</Link>
-          <Link href="/team" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Team</Link>
-          <Link href="/research" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Research</Link>
           <Link href="/newsletters" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Newsletters</Link>
-          <a href="/contact" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Contact</a>
+          <Link href="/research" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Research</Link>
+          <Link href="/articles" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Articles</Link>
+          <Link href="/podcasts" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Podcasts</Link>
+          <Link href="/team" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Team</Link>
+          <a href="mailto:pixelpulsenewsletterr@gmail.com" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Contact</a>
         </ul>
       </div>
     </header>

@@ -3,15 +3,16 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import ResearchCard from "@/components/cards/ResearchCard";
-import { researchItems, researchFilters } from "@/constants";
+import { researchItems, researchFilters } from "@/utils/research";
+import { FaMicroscope } from "react-icons/fa";
 
 export default function Page() {
   const [activeFilter, setActiveFilter] = useState("all");
 
   return (
-    <main>
-      <div className="flex flex-col items-center justify-center gap-4 text-center border-b-2 border-(--chambray) mx-15 p-10 lg:px-20 lg:pt-15 lg:py-10">
-        <h1 className="text-5xl font-bold text-shadow-md text-(--chambray) mb-2">Our Research</h1>
+    <main className="flex flex-col max-w-400 mx-auto">
+      <div className="flex flex-col items-center justify-center gap-4 text-center mx-15 p-10 lg:px-20 lg:pt-15 lg:py-10">
+        <h1 className="text-5xl font-extrabold text-(--oxford-blue) text-shadow-sm mb-2">Our Research</h1>
         <p className="text-xl">Collection of Our Latest STEM Research</p>
       </div>
 

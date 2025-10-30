@@ -1,6 +1,8 @@
 import TeamMember from "@/components/cards/TeamMember";
 import { Button } from "@/components/ui/button"
+import { teamMembers } from "@/utils/team";
 import Link from "next/link";
+import { FaGraduationCap, FaMicroscope, FaNewspaper } from "react-icons/fa";
 
 export default function Home() {
   return (
@@ -19,19 +21,19 @@ export default function Home() {
           Pixel Pulse is a youth-led initiative dedicated to tech journalism, STEM research, and educational content. Our mission is to provide valuable insights, emerging trends, breaking news, and STEM- related opportunities to empower students and tech enthusiasts.
         </p>
         <div className="flex flex-row flex-wrap w-auto max-width-80 gap-5 justify-center items-center">
-          <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-70 min-w-50 w-auto h-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
-            <h1 className="text-7xl mb-5">🎓</h1>
-            <h3 className="text-2xl font-bold text-shadow-md">Educational Resources</h3>
+          <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-70 min-w-50 w-auto h-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 items-center">
+            <FaGraduationCap className="text-7xl mb-5 text-(--rich-black)" />
+            <h3 className="text-2xl font-extrabold">Educational Resources</h3>
             <p className="text-lg">Access comprehensive educational materials, tutorials, and guides designed to support your STEM learning journey.</p>
           </div>
-          <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-70 min-w-50 w-auto h-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
-            <h1 className="text-7xl mb-5">🔬</h1>
-            <h3 className="text-2xl font-bold text-shadow-md">STEM Research</h3>
+          <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-70 min-w-50 w-auto h-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 items-center">
+            <FaMicroscope className="text-7xl mb-5 text-(--rich-black)" />
+            <h3 className="text-2xl font-extrabold">STEM Research</h3>
             <p className="text-lg">Explore original research papers and analyses across various STEM fields, contributed by our talented team of young researchers.</p>
           </div>
-          <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-70 min-w-50 w-auto h-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
-            <h1 className="text-7xl mb-5">📰</h1>
-            <h3 className="text-2xl font-bold text-shadow-md">Our Newsletters</h3>
+          <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-70 min-w-50 w-auto h-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 items-center">
+            <FaNewspaper className="text-7xl mb-5 text-(--rich-black)" />
+            <h3 className="text-2xl font-extrabold">Our Newsletters</h3>
             <p className="text-lg">Stay informed with our cutting-edge coverage of the latest technological advancements, breakthroughs, and industry trends.</p>
           </div>
         </div>
@@ -44,12 +46,9 @@ export default function Home() {
           Discover every single one of the passionate minds behind Pixel Pulse!
         </p>
         <div className="flex flex-row flex-wrap w-auto max-width-80 gap-5 justify-center items-center">
-          {/* SOHA */}
-          <TeamMember image="/soha.jpeg" name="Soha" role="Founder & President" bio="Hi there! I'm Soha, the founder and president of Pixel Pulse. I'm currently pursuing STEM and planning to major in either computer science or data science (still deciding!) at university. I truly hope Pixel Pulse grows into a valuable platform for both STEM students and beyond! I love reading and writing. :)" />
-          {/* ROLLEEN */}
-          <TeamMember image="/Rollean.webp" name="Rolleen" role="Vice President" bio="Hai my name is Rolleen! I am Pixel Pulse's Vice President and a long-term member. I am very passionate about environmental sciences and hope to pursue environmental engineering and public advocacy in the future. Outside of STEM, I am a big music person, so if you want any music suggestions I am the girl to go to. My favorite music artists consist of Jeff Buckley, Laufey, and Beabadoobee just to name a few! I am so grateful to be part of this team." />
-          {/* DARREN */}
-          <TeamMember image="https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/darren.png?v=1739814810086" name="Darren" role="Graphic Designer + Admin Secretary" bio="Hi, I'm Darren, a high school student with experience in coding, web design, and graphic design. I'm passionate about technology and plan to pursue a computer science or software engineering career. Outside of tech, I enjoy both playing and watching sports, especially soccer and tennis." />
+          {teamMembers.slice(0, 3).map((member, index) => (
+            <TeamMember key={index} image={member.image} name={member.name} role={member.role} bio={member.bio} />
+          ))}
         </div>
         <Button variant="chambray" size="xl">
           <Link href="/team">Meet The Team</Link>
@@ -58,6 +57,10 @@ export default function Home() {
 
       {/* Research and Newsletter Section */}
       <section className="h-auto w-full flex flex-col items-center justify-center gap-4 p-8 py-20 text-center bg-(--rich-black) text-(--stardust-white)">
+        {/*<h2 className="text-4xl font-bold mb-4 text-shadow-md text-(--stardust-white)">Featured Articles</h2>*/}
+        {/*<p className="max-w-3xl text-lg mb-4 text-(--platinum)">*/}
+        {/*  Discover every single one of the passionate minds behind Pixel Pulse!*/}
+        {/*</p>*/}
         <div className="flex flex-row flex-wrap w-auto max-width-180 gap-5 justify-center items-center">
           <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-100 min-w-70 w-auto h-70 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
             <h2 className="text-4xl font-bold text-shadow-md">Research</h2>

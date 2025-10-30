@@ -1,29 +1,27 @@
 "use client";
 import NewsletterCard from "@/components/cards/NewsletterCard";
-import { newsletterItems } from "@/constants";
+import { newsletterItems } from "@/utils/newsletters";
+import { FaNewspaper } from 'react-icons/fa6';
 
 export default function Page() {
 
   return (
-    <main>
-      <div className="flex flex-col items-center justify-center gap-4 text-center border-b-2 border-(--chambray) mx-15 p-10 lg:px-20 lg:pt-15 lg:py-10">
-        <h1 className="text-5xl font-bold text-shadow-md text-(--chambray) mb-2">Our Newsletters</h1>
-        <p className="text-xl">Stay updated with our latest insights, research findings, and community updates</p>
+    <main className="flex flex-row flex-wrap items-center justify-center p-10 lg:py-15 text-(--oxford-blue) gap-6 max-w-400 mx-auto">
+      <div className="flex flex-col mb-6 justify-start w-full">
+        <h1 className="text-5xl mb-4 font-extrabold text-(--oxford-blue) text-shadow-sm flex flex-row gap-4"><FaNewspaper />Newsletters</h1>
+        <h3 className="text-lg mb-4">Stay updated with our latest insights, research findings, and community updates</h3>
       </div>
 
-      {/* Filter Grid */}
-      <div id="research-cards" className="my-6 flex flex-rows flex-wrap justify-center gap-6 p-8">
-        {newsletterItems
-          .map((item, idx) => (
-            <NewsletterCard
-              key={idx}
-              date={item.date}
-              title={item.title}
-              edition={item.edition}
-              link={item.link}
-            />
-          ))}
-      </div>
+      {newsletterItems
+        .map((item, index) => (
+          <NewsletterCard
+            key={index}
+            date={item.date}
+            title={item.title}
+            edition={item.edition}
+            link={item.link}
+          />
+        ))}
     </main>
   );
 }

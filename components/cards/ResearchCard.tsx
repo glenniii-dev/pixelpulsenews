@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function ResearchCard({ date, title, summary, link, category }: { date: string; title: string; summary: string; link: string; category: string }) {
   return (
-    <Link href={link} className={`${category} flex flex-col space-y-3 p-8 bg-(--stardust-white) rounded-lg text-(--silver-lake-blue) w-95 h-80 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300`}>
+    <Link href={link} className={`${category} flex flex-col space-y-3 p-8 bg-(--stardust-white) rounded-lg text-(--silver-lake-blue) w-95 h-90 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300`}>
       <p className="text-lg font-bold text-(--oxford-blue)">{date}</p>
       <h3 className="text-lg font-bold text-(--chambray)">{title}</h3>
       <p className="text-(--silver-lake-blue)">{summary}</p>
