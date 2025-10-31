@@ -4,6 +4,9 @@ import teamMembers from "@/utils/team";
 import type Member from "@/types/Member"
 import Link from "next/link";
 import { FaGraduationCap, FaMicroscope, FaNewspaper } from "react-icons/fa";
+import Article from "@/types/Article";
+import articles from "@/utils/articles";
+import ArticleCard from "@/components/cards/ArticleCard";
 
 export default function Home() {
   return (
@@ -56,28 +59,14 @@ export default function Home() {
         </Button>
       </section>
 
-      {/* Research and Newsletter Section */}
-      <section className="h-auto w-full flex flex-col items-center justify-center gap-4 p-8 py-20 text-center bg-(--rich-black) text-(--stardust-white)">
-        {/*<h2 className="text-4xl font-bold mb-4 text-shadow-md text-(--stardust-white)">Featured Articles</h2>*/}
-        {/*<p className="max-w-3xl text-lg mb-4 text-(--platinum)">*/}
-        {/*  Discover every single one of the passionate minds behind Pixel Pulse!*/}
-        {/*</p>*/}
-        <div className="flex flex-row flex-wrap w-auto max-width-180 gap-5 justify-center items-center">
-          <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-100 min-w-70 w-auto h-70 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
-            <h2 className="text-4xl font-bold text-shadow-md">Research</h2>
-            <p className="text-xl">Explore our research projects and papers!</p>
-            <Button variant="silverlakeblue" size="xl">
-              <Link href="/research">Read More</Link>
-            </Button>
-          </div>
-          <div className="flex flex-col space-y-3 p-5 py-10 bg-(--chambray) rounded-lg text-(--stardust-white) max-w-100 min-w-70 w-auto h-70 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
-            <h2 className="text-4xl font-bold text-shadow-md">Newsletters</h2>
-            <p className="text-xl">Explore our latest findings, stories, and insights through our newsletters.</p>
-            <Button variant="silverlakeblue" size="xl">
-              <Link href="/newsletters">See Newsletters</Link>
-            </Button>
-          </div>
-        </div>
+      {/* Featured Articles Section */}
+      <section className="h-auto w-full flex flex-col items-center justify-center p-8 py-20 text-center bg-(--rich-black) text-(--stardust-white)">
+        <h2 className="text-4xl font-bold mb-12 text-shadow-md text-(--stardust-white)">Featured Articles</h2>
+
+        {articles.slice(0, 5).map((article: Article, index: number) => (
+          <ArticleCard key={index} {...article} />
+        ))}
+
       </section>
     
     </main>
