@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NewsletterCard({ date, title, edition, link }: { date: string; title: string; edition: string; link: string; }) {
   return (
-    <Link href={link} className={`flex flex-col space-y-3 p-8 bg-(--stardust-white) rounded-lg text-(--silver-lake-blue) w-90 h-60 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300`}>
+    <Link href={link} className={`flex flex-col space-y-3 p-8 bg-(--stardust-white) rounded-lg text-(--silver-lake-blue) w-90 h-65 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300`}>
       <p className="text-lg font-bold text-(--oxford-blue)">{date}</p>
       <h3 className="text-lg font-bold text-(--chambray)">{title}</h3>
       <p className="text-(--silver-lake-blue)">{edition}</p>
