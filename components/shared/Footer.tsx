@@ -12,15 +12,15 @@ export default function Footer() {
         <nav className="text-(--stardust-white) flex flex-wrap flex-col space-y-2">
           <Link href="/" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Home</Link>
           <Link href="/team" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Team</Link>
-          <Link href="/research" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Research</Link>
+          <Link href="/podcasts" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Podcasts</Link>
           <Link href="/newsletters" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Newsletters</Link>
         </nav>
       </div>
       <div>
         <p className="font-extrabold text-2xl text-(--silver-lake-blue) max-md:text-(--silver-lake-blue) mb-3 lg:mb-6">Resources</p>
         <nav className="text-(--stardust-white) flex flex-wrap flex-col space-y-2">
-          <Link href="/podcasts" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Podcasts</Link>
           <Link href="/articles" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Articles</Link>
+          <Link href="/research" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Research</Link>
         </nav>
       </div>
       <div>
