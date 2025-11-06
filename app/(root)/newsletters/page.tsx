@@ -1,35 +1,11 @@
-export const dynamic = "force-dynamic"; // This tells Next.js: “Don’t try to statically generate this route — always run it on the server.”
-
-
+import { getPublishedNewsletters } from "@/lib/newsletters";
 import NewsletterCard from "@/components/cards/NewsletterCard";
 import { FaNewspaper } from "react-icons/fa6";
 
-type Newsletter = {
-  id: number;
-  date: string;
-  title: string;
-  edition: string;
-  isPublished: boolean;
-};
+export const dynamic = "force-dynamic"; // always run on server
 
 export default async function Page() {
-  let newsletters: Newsletter[] = [];
-  let error: string | null = null;
-
-  try {
-    const res = await fetch("/api/admin/newsletters");
-
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`Failed to load newsletters: ${res.status} ${text}`);
-    }
-
-    const data = await res.json();
-    newsletters = data.newsletters.filter((item: Newsletter) => item.isPublished) ?? [];
-  } catch (err) {
-    console.error("Newsletter fetch error:", err);
-    error = err instanceof Error ? err.message : "An unknown error occurred";
-  }
+  const newsletters = await getPublishedNewsletters();
 
   return (
     <main className="flex flex-row flex-wrap items-center justify-center p-10 lg:py-15 text-[var(--oxford-blue)] gap-6 max-w-7xl mx-auto">
@@ -42,31 +18,21 @@ export default async function Page() {
         </h3>
       </div>
 
-      {/* Error State */}
-      {error && (
-        <div className="w-full text-center p-6 bg-red-50 border border-red-200 rounded-lg text-red-700">
-          <p className="font-semibold">Error loading newsletters</p>
-          <p className="text-sm mt-1">{error}</p>
-        </div>
-      )}
-
-      {/* Empty State */}
-      {!error && newsletters.length === 0 && (
+      {newsletters.length === 0 ? (
         <p className="text-center text-gray-500 w-full text-lg">
           No newsletters published yet.
         </p>
+      ) : (
+        newsletters.map((item) => (
+          <NewsletterCard
+            key={item.id}
+            date={item.date}
+            title={item.title}
+            edition={item.edition}
+            link={`/newsletters/${item.title}`}
+          />
+        ))
       )}
-
-      {/* Newsletter Cards */}
-      {newsletters.map((item) => (
-        <NewsletterCard
-          key={item.id}
-          date={item.date}
-          title={item.title}
-          edition={item.edition}
-          link={`/newsletters/${item.title}`}
-        />
-      ))}
     </main>
   );
 }
