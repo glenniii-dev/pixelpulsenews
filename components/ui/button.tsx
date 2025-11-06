@@ -24,6 +24,7 @@ const buttonVariants = cva(
           "bg-(--chambray) text-(--stardust-white) hover:bg-(--oxford-blue) mt-7 font-bold shadow-md hover:shadow-xl",
         silverlakeblue: 
           "bg-(--silver-lake-blue) text-(--stardust-white) hover:border-1 hover:border-(--oxford-blue) mt-7 font-bold shadow-md hover:shadow-xl hover:text-(--oxford-blue)",
+        admin: "bg-(--stardust-white) text-(--rich-black) hover:bg-(--silver-lake-blue) mt-7 font-bold shadow-md hover:shadow-xl",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

@@ -1,3 +1,6 @@
 Breana for the content writing dept articles
 Darren for the podcasts
 Ryan for the upcoming events and competitions
+
+
+JWT GENERATOR: node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"

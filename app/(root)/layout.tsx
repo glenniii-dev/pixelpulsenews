@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
-import "../globals.css";
-import { Playfair_Display } from "next/font/google";
-import Header from "../../components/shared/Header";
-import Footer from "../../components/shared/Footer";
-import Head from "next/head";
-
-export const playfair = Playfair_Display({
-    subsets: ["latin"], 
-    weight: ["400", "500", "600", "700", "800", "900"]
-  });
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Pixel Pulse News",
@@ -21,17 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <Head>
-        <meta name="apple-mobile-web-app-title" content="Pixel Pulse" />
-      </Head>
-      <body
-        className={`${playfair.className} bg-(--platinum)`}
-      >
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>   
   );
 }

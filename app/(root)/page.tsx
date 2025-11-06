@@ -8,7 +8,7 @@ import Article from "@/types/Article";
 import articles from "@/utils/articles";
 import ArticleCard from "@/components/cards/ArticleCard";
 
-export default function Home() {
+export default function page() {
   return (
     <main>
 
