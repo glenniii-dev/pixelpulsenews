@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic"; // This tells Next.js: “Don’t try to statically generate this route — always run it on the server.”
+
+
 import NewsletterCard from "@/components/cards/NewsletterCard";
 import { FaNewspaper } from "react-icons/fa6";
 
@@ -14,9 +17,7 @@ export default async function Page() {
   let error: string | null = null;
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/newsletters`, {
-      cache: "no-store", // always fresh
-    });
+    const res = await fetch("/api/admin/newsletters");
 
     if (!res.ok) {
       const text = await res.text();
