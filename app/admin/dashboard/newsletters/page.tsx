@@ -11,6 +11,7 @@ type Newsletter = {
   slug: string;
   edition: string;
   content: string;
+  bibliography: string;
   isPublished: boolean;
   createdAt: string;
 };
@@ -28,6 +29,7 @@ export default function Page() {
     slug: "",
     edition: "",
     content: "",
+    bibliography: "",
     isPublished: false,
   });
 
@@ -44,7 +46,6 @@ export default function Page() {
           throw new Error(data.error || "Failed to load");
         }
 
-        // Now safe to access data.newsletters
         setNewsletters(data.newsletters);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Load error");
@@ -65,6 +66,7 @@ export default function Page() {
       slug: newsletter.slug,
       edition: newsletter.edition,
       content: newsletter.content,
+      bibliography: newsletter.bibliography,
       isPublished: newsletter.isPublished,
     });
   };
@@ -101,7 +103,7 @@ export default function Page() {
 
       // Reset
       setEditingNewsletter(null);
-      setFormData({ date: "", title: "", slug: "", edition: "", content: "", isPublished: false });
+      setFormData({ date: "", title: "", slug: "", edition: "", content: "", bibliography: "", isPublished: false });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save error");
     }
@@ -112,7 +114,7 @@ export default function Page() {
   /* ------------------------------------------------------------------ */
   const handleCancel = () => {
     setEditingNewsletter(null);
-    setFormData({ date: "", title: "", slug : "", edition: "", content: "", isPublished: false });
+    setFormData({ date: "", title: "", slug : "", edition: "", content: "", bibliography: "", isPublished: false });
   };
 
   /* ------------------------------------------------------------------ */
@@ -132,9 +134,6 @@ export default function Page() {
     }
   };
 
-  /* ------------------------------------------------------------------ */
-  /* UI – loading                                                        */
-  /* ------------------------------------------------------------------ */
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -143,9 +142,6 @@ export default function Page() {
     );
   }
 
-  /* ------------------------------------------------------------------ */
-  /* Main render                                                         */
-  /* ------------------------------------------------------------------ */
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <header className="mb-8">
@@ -224,7 +220,7 @@ export default function Page() {
               className="h-4 w-4 rounded border-slate-600 bg-slate-900/50 text-[#007AFF] focus:ring-[#007AFF]"
             />
             <label htmlFor="isPublished" className="text-sm font-medium text-slate-300">
-              Published
+              Publish
             </label>
           </div>
 
@@ -236,6 +232,17 @@ export default function Page() {
             <TipTapEditor
               value={formData.content}
               onChange={(html) => setFormData((p) => ({ ...p, content: html }))}
+            />
+
+          </div>
+          {/* TipTap Editor (full width) */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-slate-300 mb-2">
+              Bibliography
+            </label>
+            <TipTapEditor
+              value={formData.bibliography}
+              onChange={(html) => setFormData((p) => ({ ...p, bibliography: html }))}
             />
           </div>
 

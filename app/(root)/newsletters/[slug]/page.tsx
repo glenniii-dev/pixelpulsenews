@@ -7,6 +7,7 @@ interface Newsletter {
   edition: string;
   title: string;
   content: string;
+  bibliography: string;
 }
 
 export default async function Page({
@@ -26,7 +27,7 @@ export default async function Page({
   if (!res.ok) notFound();
 
   const newsletter: Newsletter = await res.json();
-  const { date, edition, title, content } = newsletter;
+  const { date, edition, title, content, bibliography } = newsletter;
 
   return (
     <article className="flex flex-col items-center justify-center px-5 py-10 sm:p-10 lg:py-15 gap-6 max-w-5xl mx-auto font-medium">
@@ -35,7 +36,8 @@ export default async function Page({
           <p>{edition}</p> |
           <p>{moment(date).format("MMMM DD, YYYY")}</p>
         </div>
-      <div className="font-serif rich-text" dangerouslySetInnerHTML={{ __html: content }} />
+      <div className="rich-text" dangerouslySetInnerHTML={{ __html: content }} />
+      <div className="rich-text" dangerouslySetInnerHTML={{ __html: bibliography }} />
     </article>
   );
 }

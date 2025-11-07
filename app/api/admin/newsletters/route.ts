@@ -24,7 +24,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { date, title, slug, edition, content, isPublished } = body;
+    const { date, title, slug, edition, content, bibliography, isPublished } = body;
 
     const [newNl] = await db
       .insert(newsletters)
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
         slug,
         edition,
         content,
+        bibliography,
         isPublished: isPublished ?? false,
       })
       .returning();
@@ -53,11 +54,11 @@ export async function PUT(request: Request) {
     if (!id) throw new Error("id required");
 
     const body = await request.json();
-    const { date, title, slug, edition, content, isPublished } = body;
+    const { date, title, slug, edition, content, bibliography,isPublished } = body;
 
     const [updated] = await db
       .update(newsletters)
-      .set({ date, title, slug, edition, content, isPublished })
+      .set({ date, title, slug, edition, content, bibliography, isPublished })
       .where(eq(newsletters.id, id))
       .returning();
 

@@ -4,9 +4,9 @@ import { Playfair_Display } from "next/font/google";
 import Head from "next/head";
 
 export const playfair = Playfair_Display({
-    subsets: ["latin"], 
-    weight: ["400", "500", "600", "700", "800", "900"]
-  });
+  subsets: ["latin"], 
+  weight: ["400", "500", "600", "700", "800", "900"]
+});
 
 export const metadata: Metadata = {
   title: "Pixel Pulse News",

@@ -1,0 +1,1 @@
+ALTER TABLE "newsletters" ADD COLUMN "bibliography" text DEFAULT '' NOT NULL;

@@ -15,6 +15,7 @@ export const newsletters = pgTable("newsletters", {
   slug: varchar("slug").notNull(),
   edition: text("editon").notNull(),
   content: text("content").notNull(),
+  bibliography: text("bibliography").notNull().default(""),
   isPublished: boolean("isPublished").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

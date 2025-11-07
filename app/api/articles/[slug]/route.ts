@@ -1,5 +1,6 @@
+// app/api/newsletters/[slug]/route.ts
 import { db } from "@/db/db";
-import { newsletters } from "@/db/schema";
+import { articles } from "@/db/schema";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 
