@@ -18,6 +18,7 @@ Pixel Pulse is a youth-led initiative dedicated to tech journalism, STEM researc
 - [Admin Access](#admin-access)
 - [Learn More](#learn-more)
 - [Task Management](#task-management)
+- [Project Admin](#project-admin)
 - [Credits](#credits)
 
 ---
@@ -46,7 +47,7 @@ Ensure the following required tools are installed:
 - [Node.js](https://nodejs.org/en/download/package-manager)
 - [Git](https://git-scm.com/install/)
 
-> If you run into issues, message Glenn (glenniii.dev) on Discord.
+> If you run into issues, contact the [Project Admin](#project-admin).
 
 ### 2. Clone & Setup
 
@@ -54,7 +55,7 @@ Ensure the following required tools are installed:
 git clone https://github.com/glenniii-dev/pixelpulsenews.git
 cd pixelpulsenews
 ```
-create branch with name following the below convention
+Create a branch with name following the below convention
 `user/<github_user_name>/<issue_number>`
 
 ### 3. Configure Environment
@@ -71,7 +72,7 @@ NEXT_PUBLIC_BASE_URL =
 
 ⚠️ Do **not** commit this file. Never share real credentials in public spaces.
 
-> If you run into issues, message Glenn (glenniii.dev) on Discord.
+> If you run into issues, contact the [Project Admin](#project-admin).
 
 ### 4. Install Dependencies
 
@@ -90,6 +91,10 @@ Visit `http://localhost:3000` to view the app.
 ---
 
 ## Project Structure
+
+**Make sure you are familiar and understand the project structure before creating any new files or folders.**
+> If you have any questions or dont understand something, contact the [Project Admin](#project-admin). 
+
 <pre>
 pixelpulsenews/
 📂 ├── .next/ # Next.js build cache (auto-generated)
@@ -161,13 +166,59 @@ pixelpulsenews/
 </pre>
 ---
 
+## Database
+
+If you are working on an issue and you think you need to make changes to the existing database schema, please follow the steps below thoroughly. Missing any step or changing the way it is conveyed here might have **adverse** effect on the **stability** of the application.
+
+⚠️ **Contact the [Project Admin](#project-admin) for the main Development Database URL before continuing.**
+
+### STEP 1:
+If /drizzle folder does not exist or empty run
+
+```bash
+npm run db:generate
+```
+This is required to properly track changes made to the schema. 
+
+⚠️**Warning:** If the drizzle folder is empty/non-existent and you make any change to the schema and then run the generate command, it will think the modified schema is the current state of the database and generate incorrect SQL files. These SQL files are what will be used to make your intended change to the schema in production so be careful.
+
+### STEP 2:
+- Change the code in the db/schema.ts folder.
+- You are encouraged to add columns, relationships between existing tables or new tables.
+- If you need to delete a column or table or relationship please contact the [project_admin](#project-admin) first and discuss the potential restructuring of the schema.
+
+### STEP 3: 
+- After you are satisfied with the changes in the db/schema.ts file run
+
+```bash
+npm run db:generate
+```
+- This time it will scan the schema for changes and compare it with the last time you/any other contributor had ran the generate command.
+- You can inspect the sql file generated after running this command, you will see your schema changes correctly translated to SQL DML statements. If you are not satisfied with the generated SQL file please check the schema.ts file or refer to [drizzle documentation](https://orm.drizzle.team/docs/schemas).
+
+### STEP 4: 
+- Ensure that you are pointing to the dev database by inspecting your .env file then run
+
+📌 **NOTE:** Double-check `DATABASE_URL` in `.env` before running any Database command.
+
+```bash
+npm run db:migrate
+```
+- This command will take the SQL file generated in STEP 3 and apply it to the database. If you encounter any errors carefully inspect the error message for hints and fallback to the [drizzle documentation](https://orm.drizzle.team/docs/drizzle-kit-migrate).
+
+📌 **NOTE:** Database changes might be overridden as multiple developers are working with the same database instance, if you think that your change will take a long time and within that time period your changes might be overridden please reach out to the [Project Admin](#project-admin) and request a temporary connection string unique to you.
+
+
+---
+
+
 ## Admin Access
 
 If what your working on involves admin access to the site follow these steps:
 
-1. Get user ID and PASSWORD (e.g., `"user_ABC123"`) from **Glenn (glenniii.dev) on Discord**
+1. Get user ID and PASSWORD (e.g., `"user_ABC123"`) from the [Project Admin](#project-admin)
 
-2. Visit `/admin` route locally or on [production site](https://pixelpulsenews.org)
+2. Visit `/admin` route locally or on the [production site](https://pixelpulsenews.org)
 
 Admin routes interact with API endpoints in `/api`.
 
@@ -187,10 +238,17 @@ As you complete chapters or platform features, please:
 - Close GitHub issues assigned to you
 - Use GitHub Projects for task tracking
 
-⚠️ **Note:** Never run database migrations  or pushes without explicit permission from the project admin. Doing so could have adverse effects to the production site.
+---
+
+## Project Admin
+
+### Glenn
+**Reach out using either of the following methods:**
+- Email: **glenniii.dev@gmail.com**
+- Discord: **glenniii.dev**
 
 ---
 
 ## Credits
 
-Created with ❤️ by the Pixel Pulse Development team.
+Created with 🤍 by the Pixel Pulse Development team.
