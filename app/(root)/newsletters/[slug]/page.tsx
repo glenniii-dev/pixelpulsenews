@@ -37,7 +37,7 @@ export default async function Page({
           <p>{moment(date).format("MMMM DD, YYYY")}</p>
         </div>
       <div className="rich-text" dangerouslySetInnerHTML={{ __html: content }} />
-      <div className="rich-text" dangerouslySetInnerHTML={{ __html: bibliography }} />
+      <div className="rich-text mt-20 max-w-200" dangerouslySetInnerHTML={{ __html: bibliography }} />
     </article>
   );
 }

@@ -4,6 +4,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
+import TextAlign from "@tiptap/extension-text-align";
 import { useEffect } from "react";
 import {
   MdFormatBold,
@@ -17,6 +18,10 @@ import {
   MdCode,
   MdLink,
   MdClear,
+  MdFormatAlignLeft,
+  MdFormatAlignCenter,
+  MdFormatAlignRight,
+  MdFormatAlignJustify,
 } from "react-icons/md";
 import { IconType } from "react-icons";
 
@@ -140,13 +145,40 @@ const Toolbar = ({ editor }: { editor: any }) => {
         active={editor.isActive("link")}
       />
 
+      {/* Text Alignment */}
+      <div className="w-px h-6 bg-slate-600 mx-1" />
+      <ToolbarButton
+        icon={MdFormatAlignLeft}
+        title="Align Left"
+        onClick={() => editor.chain().focus().setTextAlign("left").run()}
+        active={editor.isActive({ textAlign: "left" })}
+      />
+      <ToolbarButton
+        icon={MdFormatAlignCenter}
+        title="Align Center"
+        onClick={() => editor.chain().focus().setTextAlign("center").run()}
+        active={editor.isActive({ textAlign: "center" })}
+      />
+      <ToolbarButton
+        icon={MdFormatAlignRight}
+        title="Align Right"
+        onClick={() => editor.chain().focus().setTextAlign("right").run()}
+        active={editor.isActive({ textAlign: "right" })}
+      />
+      <ToolbarButton
+        icon={MdFormatAlignJustify}
+        title="Justify"
+        onClick={() => editor.chain().focus().setTextAlign("justify").run()}
+        active={editor.isActive({ textAlign: "justify" })}
+      />
+
       {/* Clear */}
       <div className="ml-auto" />
       <ToolbarButton
         icon={MdClear}
         title="Clear Formatting"
         onClick={() =>
-          editor.chain().focus().clearNodes().unsetAllMarks().run()
+          editor.chain().focus().clearNodes().unsetAllMarks().unsetTextAlign().run()
         }
       />
     </div>
@@ -168,6 +200,11 @@ export default function TipTapEditor({
       }),
       Link.configure({ openOnClick: false }),
       Underline,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+        alignments: ["left", "center", "right", "justify"],
+        defaultAlignment: "left",
+      }),
     ],
     content: value,
     editorProps: {
@@ -179,7 +216,8 @@ export default function TipTapEditor({
           "[&_ul]:list-disc [&_ul]:ml-6 [&_ol]:list-decimal [&_ol]:ml-6 " +
           "[&_a]:text-blue-400 hover:[&_a]:underline " +
           "[&_blockquote]:border-l-4 [&_blockquote]:pl-3 [&_blockquote]:italic " +
-          "[&_code]:bg-slate-800 [&_code]:text-orange-300 [&_code]:px-1 [&_code]:rounded",
+          "[&_code]:bg-slate-800 [&_code]:text-orange-300 [&_code]:px-1 [&_code]:rounded " +
+          "[&_[style*='text-align:left']]:text-left [&_[style*='text-align:center']]:text-center [&_[style*='text-align:right']]:text-right [&_[style*='text-align:justify']]:text-justify",
         placeholder,
       },
     },
