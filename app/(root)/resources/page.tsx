@@ -1,7 +1,7 @@
 "use client";
 
-import articles from "@/utils/articles"
-import ArticleCard from "@/components/cards/ArticleCard"
+import resources from "@/utils/resources"
+import ResourceCard from "@/components/cards/ResourceCard"
 
 export default function Page() {
 
@@ -11,8 +11,8 @@ export default function Page() {
         <h1 className="text-5xl font-extrabold text-(--oxford-blue) text-shadow-sm mb-2">Resources</h1>
       </div>
 
-      {articles.map((article, index) => (
-        <ArticleCard key={index} {...article} />
+      {resources.map((resources, index) => (
+        <ResourceCard key={index} {...resources} />
       ))}
     </main>
   );

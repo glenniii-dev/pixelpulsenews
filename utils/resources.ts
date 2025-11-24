@@ -1,6 +1,6 @@
-import type Article from "@/types/Article";
+import type Resource from "@/types/Resource";
 
-const article: Article[] = [
+const resources: Resource[] = [
   {
     topic: "Scholarship Websites",
     document: "Scholarship Websites.docx.pdf"
@@ -87,4 +87,4 @@ const article: Article[] = [
   }
 ]
 
-export default article;
+export default resources;

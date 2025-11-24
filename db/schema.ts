@@ -19,3 +19,17 @@ export const newsletters = pgTable("newsletters", {
   isPublished: boolean("isPublished").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
+
+// Articles Table
+export const articles = pgTable("articles", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  date: varchar("date").notNull(),
+  title: varchar("title").notNull(),
+  slug: varchar("slug").notNull(),
+  submittedTo: text("submittedTo").notNull(),
+  content: text("content").notNull(),
+  author: text("author").notNull(),
+  bibliography: text("bibliography").notNull().default(""),
+  isPublished: boolean("isPublished").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});

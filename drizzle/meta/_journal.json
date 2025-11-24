@@ -15,6 +15,20 @@
       "when": 1762537848645,
       "tag": "0001_far_spyke",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1763408593502,
+      "tag": "0002_curved_eddie_brock",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1763411450123,
+      "tag": "0003_good_molten_man",
+      "breakpoints": true
     }
   ]
 }

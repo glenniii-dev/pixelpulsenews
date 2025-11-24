@@ -4,9 +4,6 @@ import teamMembers from "@/utils/team";
 import type Member from "@/types/Member"
 import Link from "next/link";
 import { FaGraduationCap, FaMicroscope, FaNewspaper } from "react-icons/fa";
-import Article from "@/types/Article";
-import articles from "@/utils/articles";
-import ArticleCard from "@/components/cards/ArticleCard";
 
 export default function page() {
   return (
@@ -60,14 +57,14 @@ export default function page() {
       </section>
 
       {/* Featured Articles Section */}
-      <section className="h-auto w-full flex flex-col items-center justify-center p-8 py-20 text-center bg-(--rich-black) text-(--stardust-white)">
+      {/* <section className="h-auto w-full flex flex-col items-center justify-center p-8 py-20 text-center bg-(--rich-black) text-(--stardust-white)">
         <h2 className="text-4xl font-bold mb-12 text-shadow-md text-(--stardust-white)">Featured Articles</h2>
 
         {articles.slice(0, 5).map((article: Article, index: number) => (
           <ArticleCard key={index} {...article} />
         ))}
 
-      </section>
+      </section> */}
     
     </main>
   )

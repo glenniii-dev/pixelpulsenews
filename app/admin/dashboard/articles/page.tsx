@@ -3,50 +3,44 @@
 import React, { useState, useEffect } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import TipTapEditor from "@/components/admin/TipTapEditor";
-
-type Article = {
-  id: number;
-  date: string;          // YYYY-MM-DD
-  title: string;
-  slug: string;
-  edition: string;
-  content: string;
-  bibliography: string;
-  isPublished: boolean;
-  createdAt: string;
-};
+import type Article from "@/types/Article";
 
 export default function Page() {
-  const [newsletters, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<Article[]>([]); // Fixed naming
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingArticle, setEditingArticle] = useState<Article | null>(null);
 
-  // Full form state (including the extra fields)
+  // Full form state
   const [formData, setFormData] = useState({
     date: "",
     title: "",
     slug: "",
-    edition: "",
+    submittedTo: "",
     content: "",
+    author: "",
     bibliography: "",
     isPublished: false,
   });
 
   /* ------------------------------------------------------------------ */
-  /* Load newsletters                                                    */
+  /* Load articles                                                    */
   /* ------------------------------------------------------------------ */
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("/api/admin/newsletters", { credentials: "include" });
+        const res = await fetch("/api/admin/articles", { credentials: "include" });
         const data = await res.json();
 
         if (!res.ok) {
           throw new Error(data.error || "Failed to load");
         }
 
-        setArticles(data.newsletters);
+        const list: Article[] = Array.isArray(data)
+        ? data
+        : data.article ?? data.articles ?? [];
+
+        setArticles(list);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Load error");
       } finally {
@@ -56,18 +50,19 @@ export default function Page() {
   }, []);
 
   /* ------------------------------------------------------------------ */
-  /* Edit handler – populate the whole form                              */
+  /* Edit handler – populate the form                                    */
   /* ------------------------------------------------------------------ */
-  const handleEdit = (newsletter: Article) => {
-    setEditingArticle(newsletter);
+  const handleEdit = (article: Article) => {
+    setEditingArticle(article);
     setFormData({
-      date: newsletter.date,
-      title: newsletter.title,
-      slug: newsletter.slug,
-      edition: newsletter.edition,
-      content: newsletter.content,
-      bibliography: newsletter.bibliography,
-      isPublished: newsletter.isPublished,
+      date: article.date,
+      title: article.title,
+      slug: article.slug,
+      submittedTo: article.submittedTo,
+      content: article.content,
+      author: article.author,
+      bibliography: article.bibliography,
+      isPublished: article.isPublished,
     });
   };
 
@@ -80,8 +75,8 @@ export default function Page() {
 
     const method = editingArticle ? "PUT" : "POST";
     const url = editingArticle
-      ? `/api/admin/newsletters?id=${editingArticle.id}`
-      : "/api/admin/newsletters";
+      ? `/api/admin/articles?id=${editingArticle.id}`
+      : "/api/admin/articles";
 
     try {
       const res = await fetch(url, {
@@ -90,20 +85,35 @@ export default function Page() {
         credentials: "include",
         body: JSON.stringify(formData),
       });
-      if (!res.ok) throw new Error("Save failed");
-      const { newsletter } = await res.json();
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Save failed");
+      }
+
+      const response = await res.json();
+      const savedArticle: Article = response.article ?? response.articles ?? response;
 
       if (editingArticle) {
         setArticles((prev) =>
-          prev.map((x) => (x.id === editingArticle.id ? newsletter : x))
+          prev.map((x) => (x.id === editingArticle.id ? savedArticle : x))
         );
       } else {
-        setArticles((prev) => [newsletter, ...prev]);
+        setArticles((prev) => [savedArticle, ...prev]);
       }
 
-      // Reset
+      // Reset form
       setEditingArticle(null);
-      setFormData({ date: "", title: "", slug: "", edition: "", content: "", bibliography: "", isPublished: false });
+      setFormData({
+        date: "",
+        title: "",
+        slug: "",
+        submittedTo: "",
+        content: "",
+        author: "",
+        bibliography: "",
+        isPublished: false,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save error");
     }
@@ -114,20 +124,31 @@ export default function Page() {
   /* ------------------------------------------------------------------ */
   const handleCancel = () => {
     setEditingArticle(null);
-    setFormData({ date: "", title: "", slug : "", edition: "", content: "", bibliography: "", isPublished: false });
+    setFormData({
+      date: "",
+      title: "",
+      slug: "",
+      submittedTo: "",
+      content: "",
+      author: "",
+      bibliography: "",
+      isPublished: false,
+    });
   };
 
   /* ------------------------------------------------------------------ */
   /* Delete                                                              */
   /* ------------------------------------------------------------------ */
   const handleDelete = async (id: number) => {
-    if (!confirm("Delete this newsletter?")) return;
+    if (!confirm("Delete this article?")) return;
+
     try {
-      const res = await fetch(`/api/admin/newsletters?id=${id}`, {
+      const res = await fetch(`/api/admin/articles?id=${id}`, {
         method: "DELETE",
         credentials: "include",
       });
       if (!res.ok) throw new Error("Delete failed");
+
       setArticles((prev) => prev.filter((x) => x.id !== id));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Delete error");
@@ -146,7 +167,7 @@ export default function Page() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-slate-100">Manage Articles</h1>
-        <p className="mt-2 text-sm text-slate-400">Create and manage your newsletter</p>
+        <p className="mt-2 text-sm text-slate-400">Create and manage your articles</p>
       </header>
 
       {/* Error banner */}
@@ -179,18 +200,33 @@ export default function Page() {
             />
           </div>
 
-          {/* Edition */}
+          {/* Submitted To */}
           <div>
-            <label htmlFor="edition" className="block text-sm font-medium text-slate-300">
-              Edition
+            <label htmlFor="submittedTo" className="block text-sm font-medium text-slate-300">
+              Submitted To
             </label>
             <input
-              id="edition"
+              id="submittedTo"
               type="text"
               required
-              placeholder="e.g. #42"
-              value={formData.edition}
-              onChange={(e) => setFormData((p) => ({ ...p, edition: e.target.value }))}
+              placeholder="e.g. Magazine Name, Journal Name"
+              value={formData.submittedTo}
+              onChange={(e) => setFormData((p) => ({ ...p, submittedTo: e.target.value }))}
+              className="mt-1 block w-full rounded-md bg-slate-900/50 border-slate-700 text-slate-100 shadow-sm p-2"
+            />
+          </div>
+
+          {/* Author (full width) */}
+          <div className="md:col-span-2">
+            <label htmlFor="author" className="block text-sm font-medium text-slate-300">
+              Author
+            </label>
+            <input
+              id="author"
+              type="text"
+              required
+              value={formData.author}
+              onChange={(e) => setFormData((p) => ({ ...p, author: e.target.value }))}
               className="mt-1 block w-full rounded-md bg-slate-900/50 border-slate-700 text-slate-100 shadow-sm p-2"
             />
           </div>
@@ -205,7 +241,13 @@ export default function Page() {
               type="text"
               required
               value={formData.title}
-              onChange={(e) => setFormData((p) => ({ ...p, title: e.target.value, slug: e.target.value.toLowerCase().replace(/\s+/g, '-') }))}
+              onChange={(e) =>
+                setFormData((p) => ({
+                  ...p,
+                  title: e.target.value,
+                  slug: e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, ""),
+                }))
+              }
               className="mt-1 block w-full rounded-md bg-slate-900/50 border-slate-700 text-slate-100 shadow-sm p-2"
             />
           </div>
@@ -224,7 +266,7 @@ export default function Page() {
             </label>
           </div>
 
-          {/* TipTap Editor (full width) */}
+          {/* Content Editor */}
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-slate-300 mb-2">
               Content
@@ -233,8 +275,8 @@ export default function Page() {
               value={formData.content}
               onChange={(html) => setFormData((p) => ({ ...p, content: html }))}
             />
-
           </div>
+
           {/* TipTap Editor (full width) */}
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-slate-300 mb-2">
@@ -272,42 +314,42 @@ export default function Page() {
         <div className="p-6">
           <h2 className="text-lg font-medium text-slate-100 mb-4">Articles</h2>
 
-          {newsletters.length === 0 ? (
-            <p className="text-sm text-slate-400">No newsletters yet.</p>
+          {articles.length === 0 ? (
+            <p className="text-sm text-slate-400">No articles yet.</p>
           ) : (
             <div className="space-y-4">
-              {newsletters.map((b) => (
-                <div
-                  key={b.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-slate-700/50 rounded-lg"
-                >
-                  <div className="flex-1 mb-3 sm:mb-0 sm:mr-4">
-                    <h3 className="text-sm font-medium text-slate-100">{b.title}</h3>
-                    <p className="mt-1 text-sm text-slate-400">
-                      {b.edition} • {new Date(b.date).toLocaleDateString()} •{" "}
-                      {new Date(b.createdAt).toLocaleDateString()}
-                      {b.isPublished ? " • Published" : " • Draft"}
-                    </p>
-                  </div>
+                {articles.map((article) => (
+                    <div
+                    key={article.id}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-slate-700/50 rounded-lg transition-colors"
+                    >
+                    <div className="flex-1 mb-3 sm:mb-0 sm:mr-4">
+                        <h3 className="text-sm font-medium text-slate-100">{article.title}</h3>
+                        <p className="mt-1 text-sm text-slate-400">
+                        {article.author} • {new Date(article.date).toLocaleDateString()} •{" "}
+                        {new Date(article.createdAt).toLocaleDateString()}
+                        {article.isPublished ? " • Published" : " • Draft"}
+                        </p>
+                    </div>
 
-                  <div className="flex space-x-2 self-end sm:self-center">
-                    <button
-                      onClick={() => handleEdit(b)}
-                      className="p-2 text-slate-400 hover:text-[#007AFF]"
-                      title="Edit"
-                    >
-                      <MdEdit className="h-5 w-5" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(b.id)}
-                      className="p-2 text-slate-400 hover:text-red-400"
-                      title="Delete"
-                    >
-                      <MdDelete className="h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-              ))}
+                    <div className="flex space-x-2 self-end sm:self-center">
+                        <button
+                        onClick={() => handleEdit(article)}
+                        className="p-2 text-slate-400 hover:text-[#007AFF] transition-colors"
+                        title="Edit"
+                        >
+                        <MdEdit className="h-5 w-5" />
+                        </button>
+                        <button
+                        onClick={() => handleDelete(article.id)}
+                        className="p-2 text-slate-400 hover:text-red-400 transition-colors"
+                        title="Delete"
+                        >
+                        <MdDelete className="h-5 w-5" />
+                        </button>
+                    </div>
+                    </div>
+                ))}
             </div>
           )}
         </div>

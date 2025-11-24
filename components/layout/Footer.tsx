@@ -20,6 +20,7 @@ export default function Footer() {
         <p className="font-extrabold text-2xl text-(--silver-lake-blue) max-md:text-(--silver-lake-blue) mb-3 lg:mb-6">Resources</p>
         <nav className="text-(--stardust-white) flex flex-wrap flex-col space-y-2">
           <Link href="/resources" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Resources</Link>
+          <Link href="/articles" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Articles</Link>
           <Link href="/research" className="hover:underline hover:underline-offset-4 hover:decoration-(--silver-lake-blue) hover:decoration-2">Research</Link>
           <Link href="/admin" className="text-(--chambray) hover:text-(--stardust-white)">Admin</Link>
         </nav>
