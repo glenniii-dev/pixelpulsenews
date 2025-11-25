@@ -5,7 +5,9 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
-import { useEffect } from "react";
+import Image from "@tiptap/extension-image";
+import { useEffect, useRef, useState } from "react";
+
 import {
   MdFormatBold,
   MdFormatItalic,
@@ -22,14 +24,49 @@ import {
   MdFormatAlignCenter,
   MdFormatAlignRight,
   MdFormatAlignJustify,
+  MdImage,
 } from "react-icons/md";
-import { IconType } from "react-icons";
+
+import type { IconType } from "react-icons";
 
 interface TipTapEditorProps {
   value: string;
   onChange: (html: string) => void;
   placeholder?: string;
 }
+
+const DynamicUploadButton = ({ editor }: { editor: any }) => {
+  const [Comp, setComp] = useState<any>(null);
+  useEffect(() => {
+    let mounted = true;
+    import("@uploadthing/react").then((m) => {
+      const C = m?.UploadButton ?? (m?.generateUploadButton ? m.generateUploadButton() : null);
+      if (mounted) setComp(() => C);
+    });
+    return () => { mounted = false; };
+  }, []);
+  if (!Comp) return <div>Loading UploadButton…</div>;
+  return (
+    <Comp
+      endpoint="editorImages"
+      onClientUploadComplete={(res: any) => {
+        // Log result and insert image when URL is present
+        // eslint-disable-next-line no-console
+        console.log('[uploadthing] client upload complete', res);
+        if (editor && res && Array.isArray(res) && res[0] && res[0].url) {
+          editor.chain().focus().setImage({ src: res[0].url }).run();
+        }
+      }}
+      onUploadError={(err: any) => {
+        // eslint-disable-next-line no-console
+        console.error('[uploadthing] client upload error', err);
+        try {
+          alert('Image upload failed: ' + (err?.message ?? JSON.stringify(err)));
+        } catch (e) {}
+      }}
+    />
+  );
+};
 
 const ToolbarButton = ({
   icon: Icon,
@@ -43,33 +80,69 @@ const ToolbarButton = ({
   title?: string;
 }) => (
   <button
-    type="button"
     onClick={onClick}
-    className={`p-2 rounded text-white transition ${
+    type="button"
+    title={title}
+    className={`p-2 rounded transition text-white ${
       active ? "bg-blue-600" : "bg-slate-900 hover:bg-slate-700"
     }`}
-    title={title}
   >
     <Icon size={18} />
   </button>
 );
 
 const Toolbar = ({ editor }: { editor: any }) => {
+  const uploadRef = useRef<HTMLDivElement | null>(null);
+  const [UploadButtonComp, setUploadButtonComp] = useState<any>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    // Dynamically import the UploadButton from @uploadthing/react on client
+    import("@uploadthing/react").then((m) => {
+      const Comp = m?.UploadButton ?? (m?.generateUploadButton ? m.generateUploadButton() : null);
+      if (mounted) setUploadButtonComp(() => Comp);
+    }).catch(() => {
+      // ignore; component will remain null
+    });
+    return () => { mounted = false; };
+  }, []);
+
   if (!editor) return null;
+
+  const handleImageUpload = () => {
+    // Find the file input inside the UploadButton wrapper and trigger it
+    if (uploadRef.current) {
+      const input = uploadRef.current.querySelector("input[type=file]") as HTMLInputElement | null;
+      if (input) {
+        input.click();
+        return;
+      }
+    }
+
+    // Fallback: open a native file picker
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = async () => {
+      if (!input.files) return;
+
+      // Try to use dynamic UploadButton's behavior by uploading via fetch to your API
+      // as a minimal fallback, we won't attempt upload here.
+    };
+
+    input.click();
+  };
 
   const setLink = () => {
     const url = window.prompt("Enter URL");
-    if (url === null) return;
-    if (url === "") {
-      editor.chain().focus().unsetLink().run();
-      return;
-    }
+    if (!url) return editor.chain().focus().unsetLink().run();
+
     editor.chain().focus().setLink({ href: url }).run();
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-1 p-2 border-b border-slate-300 bg-slate-800">
-      {/* Text styling */}
+    <div className="flex flex-wrap items-center gap-1 p-2 bg-slate-800 border-b border-slate-700">
       <ToolbarButton
         icon={MdFormatBold}
         title="Bold"
@@ -95,7 +168,6 @@ const Toolbar = ({ editor }: { editor: any }) => {
         active={editor.isActive("strike")}
       />
 
-      {/* Headings */}
       <ToolbarButton
         icon={MdTitle}
         title="Heading 1"
@@ -109,7 +181,6 @@ const Toolbar = ({ editor }: { editor: any }) => {
         active={editor.isActive("heading", { level: 2 })}
       />
 
-      {/* Lists */}
       <ToolbarButton
         icon={MdFormatListBulleted}
         title="Bullet List"
@@ -123,13 +194,13 @@ const Toolbar = ({ editor }: { editor: any }) => {
         active={editor.isActive("orderedList")}
       />
 
-      {/* Block styles */}
       <ToolbarButton
         icon={MdFormatQuote}
         title="Blockquote"
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         active={editor.isActive("blockquote")}
       />
+
       <ToolbarButton
         icon={MdCode}
         title="Code Block"
@@ -137,7 +208,6 @@ const Toolbar = ({ editor }: { editor: any }) => {
         active={editor.isActive("codeBlock")}
       />
 
-      {/* Links */}
       <ToolbarButton
         icon={MdLink}
         title="Link"
@@ -145,35 +215,64 @@ const Toolbar = ({ editor }: { editor: any }) => {
         active={editor.isActive("link")}
       />
 
-      {/* Text Alignment */}
-      <div className="w-px h-6 bg-slate-600 mx-1" />
+      <ToolbarButton
+        icon={MdImage}
+        title="Insert Image"
+        onClick={handleImageUpload}
+      />
+
+      {/* Hidden wrapper for UploadButton; we render it so its internal file input can be triggered */}
+       {/* Upload button directly in toolbar */}
+       {UploadButtonComp && (
+         <div className="ml-2">
+           {/* @ts-ignore */}
+           <UploadButtonComp
+             endpoint="editorImages"
+             onClientUploadComplete={(res: any) => {
+              // eslint-disable-next-line no-console
+              console.log('[uploadthing] toolbar upload complete', res);
+              if (!res || !Array.isArray(res) || !res[0] || !res[0].url) {
+                // eslint-disable-next-line no-console
+                console.error('[uploadthing] no url returned', res);
+                alert("Image upload failed or no URL returned. See console.");
+                return;
+              }
+              editor.chain().focus().setImage({ src: res[0].url }).run();
+             }}
+            onUploadError={(err: any) => {
+              // eslint-disable-next-line no-console
+              console.error('[uploadthing] toolbar upload error', err);
+              try { alert('Image upload failed: ' + (err?.message ?? JSON.stringify(err))); } catch (e) {}
+            }}
+           />
+         </div>
+       )}
+
+      <div className="w-px h-6 bg-gray-500 mx-2" />
+
       <ToolbarButton
         icon={MdFormatAlignLeft}
-        title="Align Left"
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         active={editor.isActive({ textAlign: "left" })}
       />
       <ToolbarButton
         icon={MdFormatAlignCenter}
-        title="Align Center"
         onClick={() => editor.chain().focus().setTextAlign("center").run()}
         active={editor.isActive({ textAlign: "center" })}
       />
       <ToolbarButton
         icon={MdFormatAlignRight}
-        title="Align Right"
         onClick={() => editor.chain().focus().setTextAlign("right").run()}
         active={editor.isActive({ textAlign: "right" })}
       />
       <ToolbarButton
         icon={MdFormatAlignJustify}
-        title="Justify"
         onClick={() => editor.chain().focus().setTextAlign("justify").run()}
         active={editor.isActive({ textAlign: "justify" })}
       />
 
-      {/* Clear */}
       <div className="ml-auto" />
+
       <ToolbarButton
         icon={MdClear}
         title="Clear Formatting"
@@ -191,33 +290,31 @@ export default function TipTapEditor({
   placeholder = "Start writing…",
 }: TipTapEditorProps) {
   const editor = useEditor({
-    immediatelyRender: false,
     extensions: [
-      StarterKit.configure({
-        heading: { levels: [1, 2] },
-        bulletList: { keepMarks: true },
-        orderedList: { keepMarks: true },
-      }),
-      Link.configure({ openOnClick: false }),
+      StarterKit,
       Underline,
-      TextAlign.configure({
-        types: ["heading", "paragraph"],
-        alignments: ["left", "center", "right", "justify"],
-        defaultAlignment: "left",
-      }),
+      Image,
+      Link.configure({ openOnClick: false }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
     content: value,
+    // Avoid SSR hydration mismatches — render editor only on client
+    immediatelyRender: false,
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm sm:prose lg:prose-lg max-w-none focus:outline-none p-4 min-h-[300px] text-white " +
-          "[&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mt-4 [&_h1]:mb-2 " +
-          "[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mt-3 [&_h2]:mb-1 " +
-          "[&_ul]:list-disc [&_ul]:ml-6 [&_ol]:list-decimal [&_ol]:ml-6 " +
-          "[&_a]:text-blue-400 hover:[&_a]:underline " +
-          "[&_blockquote]:border-l-4 [&_blockquote]:pl-3 [&_blockquote]:italic " +
-          "[&_code]:bg-slate-800 [&_code]:text-orange-300 [&_code]:px-1 [&_code]:rounded " +
-          "[&_[style*='text-align:left']]:text-left [&_[style*='text-align:center']]:text-center [&_[style*='text-align:right']]:text-right [&_[style*='text-align:justify']]:text-justify",
+          "prose prose-invert max-w-none focus:outline-none p-4 min-h-[300px] text-white " +
+          "[&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mt-8 [&_h1]:mb-4 " +
+          "[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mt-6 [&_h2]:mb-3 " +
+          "[&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-5 [&_h3]:mb-2 " +
+          "[&_h4]:text-lg [&_h4]:font-medium [&_h4]:mt-4 [&_h4]:mb-2 " +
+          "[&_ul]:list-disc [&_ul]:ml-6 [&_ul]:my-2 " +
+          "[&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:my-2 " +
+          "[&_li]:my-1 " +
+          "[&_blockquote]:border-l-4 [&_blockquote]:border-slate-600 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-400 [&_blockquote]:my-4 " +
+          "[&_code]:bg-slate-800 [&_code]:text-orange-300 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm " +
+          "[&_[style*='text-align:left']]:text-left [&_[style*='text-align:center']]:text-center [&_[style*='text-align:right']]:text-right [&_[style*='text-align:justify']]:text-justify " +
+          "[&_a]:text-blue-400 [&_a]:underline hover:[&_a]:text-blue-300",
         placeholder,
       },
     },
@@ -225,17 +322,47 @@ export default function TipTapEditor({
   });
 
   useEffect(() => {
-    if (!editor) return;
-    const currentHtml = editor.getHTML();
-    if (value !== currentHtml) {
+    if (editor && editor.getHTML() !== value) {
       editor.commands.setContent(value, { emitUpdate: false });
     }
   }, [value, editor]);
 
   return (
-    <div className="rounded-lg overflow-hidden border border-slate-300 bg-slate-900">
+    <div className="border border-slate-700 rounded-lg overflow-hidden bg-slate-900">
       <Toolbar editor={editor} />
       <EditorContent editor={editor} />
+      {/* Visible test UploadButton for debugging */}
+       {/* UploadButton moved to toolbar above */}
     </div>
   );
+// Visible test UploadButton for debugging
+function TestUploadButton({ editor }: { editor: any }) {
+  const [Comp, setComp] = useState<any>(null);
+  useEffect(() => {
+    let mounted = true;
+    import("@uploadthing/react").then((m) => {
+      const C = m?.UploadButton ?? (m?.generateUploadButton ? m.generateUploadButton() : null);
+      if (mounted) setComp(() => C);
+    });
+    return () => { mounted = false; };
+  }, []);
+  if (!Comp) return <div>Loading UploadButton…</div>;
+  return (
+    <Comp
+      endpoint="editorImages"
+      onClientUploadComplete={(res: any) => {
+        // eslint-disable-next-line no-console
+        console.log('[uploadthing] test button upload complete', res);
+        if (editor && res && Array.isArray(res) && res[0] && res[0].url) {
+          editor.chain().focus().setImage({ src: res[0].url }).run();
+        }
+      }}
+      onUploadError={(err: any) => {
+        // eslint-disable-next-line no-console
+        console.error('[uploadthing] test button upload error', err);
+        try { alert('Image upload failed: ' + (err?.message ?? JSON.stringify(err))); } catch (e) {}
+      }}
+    />
+  );
+}
 }

@@ -22,10 +22,13 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./*"
-      ]
+      ],
+      "@uploadthing/react": ["node_modules/@uploadthing/react/dist/index.d.ts"],
+      "@uploadthing/react/*": ["node_modules/@uploadthing/react/dist/*"]
     }
   },
   "include": [

@@ -9,12 +9,12 @@ export default async function Page() {
 
   return (
     <main className="flex flex-row flex-wrap items-center justify-center p-10 lg:py-15 text-[var(--oxford-blue)] gap-6 max-w-7xl mx-auto">
-      <div className="flex flex-col mb-6 justify-start w-full">
+      <div className="flex flex-col mb-6 justify-center w-full text-center items-center">
         <h1 className="text-5xl mb-4 font-extrabold text-[var(--oxford-blue)] text-shadow-sm flex flex-row gap-4 items-center">
-          <FaNewspaper /> Articles
+          Articles
         </h1>
         <h3 className="text-lg mb-4">
-          Stay updated with our latest insights, research findings, and community updates
+          {/* DESCRIPTION FROM BREANA */}
         </h3>
       </div>
 
@@ -25,7 +25,6 @@ export default async function Page() {
       ) : (
         articles.map((item) => (
           <ArticleCard
-            key={item.slug}
             title={item.title}
             submittedTo={item.submittedTo}
             slug={`/articles/${item.slug}`}
