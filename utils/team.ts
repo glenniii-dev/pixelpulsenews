@@ -11,12 +11,12 @@ const teamMembers: Member[] = [
     image: "/Rolleen.webp",
     name: "Rolleen",
     role: "Vice President",
-    bio: "Hai my name is Rolleen! I am Pixel Pulse's Vice President and a long-term member. I am very passionate about environmental sciences and hope to pursue environmental engineering and public advocacy in the future. Outside of STEM, I am a big music person, so if you want any music suggestions I am the girl to go to. My favorite music artists consist of Jeff Buckley, Laufey, and Beabadoobee just to name a few! I am so grateful to be part of this team.",
+    bio: "Hai my name is Rolleen! I am Pixel Pulse's Vice President and a long-term member. I am very passionate about environmental sciences and hope to pursue environmental engineering and public advocacy in the future. Outside of STEM, I am a big music person, so if you want any music suggestions I am the girl to go to.",
   },
   {
     image: "https://cdn.glitch.global/e935e5cb-fc33-4f8d-a0d2-76cc83905dc9/darren.png?v=1739814810086",
     name: "Darren",
-    role: "Graphic Designer + Admin Secretary",
+    role: "Admin Secretary",
     bio: "Hi, I'm Darren, a high school student with experience in coding, web design, and graphic design. I'm passionate about technology and plan to pursue a computer science or software engineering career. Outside of tech, I enjoy both playing and watching sports, especially soccer and tennis.",
   },
   {
@@ -36,6 +36,12 @@ const teamMembers: Member[] = [
     name: "Glenn",
     role: "Web Development Lead",
     bio: "Hi, I'm Glenn! I'm a web developer passionate about bringing ideas to life through clean, thoughtful design and code. I love creating websites and am always looking for new ways to learn, grow, and challenge myself. Outside of coding, I enjoy experimenting in the kitchen, stargazing, and growing unique plants.",
+  },
+  {
+    image: "",
+    name: "Breana",
+    role: "Content Writing Lead",
+    bio: "Hi, I'm Breana, a junior in high school! I'm currently taking A and AS Levels along with AP classes. I'm deeply interested in the medical field, still looking out for the right path. However, my passions lay in helping people get through the toughness times in their lives. I do love being creative; writing and reading will forever be my happiness hobbies.",
   },
   {
     image: "/Lynn.webp",
@@ -84,7 +90,7 @@ const teamMembers: Member[] = [
     name: "Ishaq",
     role: "Content Writer",
     bio: "Hi everyone, I'm 17 and in Year 13, currently studying for my A-Levels in London. I study Maths, Further Maths, Physics and Computer Science, and after university, I want to go into Software Engineering or A.I, although I may not stay in it forever. Outside of academics, I enjoy playing and watching squash, programming and playing video games.",
-  },
+  }
 ];
 
 export default teamMembers;

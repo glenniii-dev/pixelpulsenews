@@ -24,7 +24,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Pixel Pulse" />
       </Head>
       <body
-        className={`${playfair.className} bg-(--platinum)`}
+        className={`${playfair.className} bg-white`}
       >
         {children}
       </body>

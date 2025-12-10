@@ -31,8 +31,8 @@ export default async function Page({
 
   return (
     <article className="flex flex-col items-center justify-center px-5 py-10 sm:p-10 lg:py-15 gap-6 max-w-5xl mx-auto font-medium">
-        <h1 className="text-rich-black text-3xl sm:text-5xl font-bold mb-2 text-center">{title}</h1>
-        <div className="flex flex-wrap gap-2 sm:gap-4 text-md sm:text-lg font-semibold text-chambray text-center">
+        <h1 className="text-serene-400 text-3xl sm:text-5xl font-bold mb-2 text-center">{title}</h1>
+        <div className="flex flex-wrap gap-2 sm:gap-4 text-md sm:text-lg font-bold text-serene-300 text-center">
           <p>{edition}</p> |
           <p>{moment(date).format("MMMM DD, YYYY")}</p>
         </div>

@@ -9,10 +9,12 @@ export default function Page() {
   const [activeFilter, setActiveFilter] = useState("all");
 
   return (
-    <main className="flex flex-col max-w-400 mx-auto">
-      <div className="flex flex-col items-center justify-center gap-4 text-center p-10 lg:px-20 lg:pt-15 lg:py-10">
-        <h1 className="text-5xl font-extrabold text-(--oxford-blue) text-shadow-sm mb-2">Our Research</h1>
-        <p className="text-xl">Collection of Our Latest STEM Research</p>
+    <main className="flex flex-col flex-wrap items-center p-10 lg:py-15 text-serene-400 gap-6 max-w-350 mx-auto">
+      <div className="flex flex-col w-full text-center">
+        <h2 className="text-5xl font-bold mb-4">Research Papers</h2>
+        <h3 className="text-lg mb-4">
+          Collection of Our Latest STEM Research
+        </h3>
       </div>
 
       {/* Filter Buttons */}
@@ -20,11 +22,11 @@ export default function Page() {
         {researchFilters.map((filter) => (
           <Button
             key={filter}
-            variant="chambray"
+            variant="serene"
             size="lg"
             id={filter}
             className={`research-filter-btn btn ${
-              activeFilter === filter ? "border-2 border-(--oxford-blue) shadow-2xl" : ""
+              activeFilter === filter ? "border-2 border-serene-400 shadow-2xl" : ""
             }`}
             onClick={() => setActiveFilter(filter)}
             data-selected={activeFilter === filter}

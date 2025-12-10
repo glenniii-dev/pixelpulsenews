@@ -35,39 +35,6 @@ interface TipTapEditorProps {
   placeholder?: string;
 }
 
-const DynamicUploadButton = ({ editor }: { editor: any }) => {
-  const [Comp, setComp] = useState<any>(null);
-  useEffect(() => {
-    let mounted = true;
-    import("@uploadthing/react").then((m) => {
-      const C = m?.UploadButton ?? (m?.generateUploadButton ? m.generateUploadButton() : null);
-      if (mounted) setComp(() => C);
-    });
-    return () => { mounted = false; };
-  }, []);
-  if (!Comp) return <div>Loading UploadButton…</div>;
-  return (
-    <Comp
-      endpoint="editorImages"
-      onClientUploadComplete={(res: any) => {
-        // Log result and insert image when URL is present
-        // eslint-disable-next-line no-console
-        console.log('[uploadthing] client upload complete', res);
-        if (editor && res && Array.isArray(res) && res[0] && res[0].url) {
-          editor.chain().focus().setImage({ src: res[0].url }).run();
-        }
-      }}
-      onUploadError={(err: any) => {
-        // eslint-disable-next-line no-console
-        console.error('[uploadthing] client upload error', err);
-        try {
-          alert('Image upload failed: ' + (err?.message ?? JSON.stringify(err)));
-        } catch (e) {}
-      }}
-    />
-  );
-};
-
 const ToolbarButton = ({
   icon: Icon,
   onClick,
@@ -92,47 +59,6 @@ const ToolbarButton = ({
 );
 
 const Toolbar = ({ editor }: { editor: any }) => {
-  const uploadRef = useRef<HTMLDivElement | null>(null);
-  const [UploadButtonComp, setUploadButtonComp] = useState<any>(null);
-
-  useEffect(() => {
-    let mounted = true;
-    // Dynamically import the UploadButton from @uploadthing/react on client
-    import("@uploadthing/react").then((m) => {
-      const Comp = m?.UploadButton ?? (m?.generateUploadButton ? m.generateUploadButton() : null);
-      if (mounted) setUploadButtonComp(() => Comp);
-    }).catch(() => {
-      // ignore; component will remain null
-    });
-    return () => { mounted = false; };
-  }, []);
-
-  if (!editor) return null;
-
-  const handleImageUpload = () => {
-    // Find the file input inside the UploadButton wrapper and trigger it
-    if (uploadRef.current) {
-      const input = uploadRef.current.querySelector("input[type=file]") as HTMLInputElement | null;
-      if (input) {
-        input.click();
-        return;
-      }
-    }
-
-    // Fallback: open a native file picker
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
-
-    input.onchange = async () => {
-      if (!input.files) return;
-
-      // Try to use dynamic UploadButton's behavior by uploading via fetch to your API
-      // as a minimal fallback, we won't attempt upload here.
-    };
-
-    input.click();
-  };
 
   const setLink = () => {
     const url = window.prompt("Enter URL");
@@ -216,41 +142,6 @@ const Toolbar = ({ editor }: { editor: any }) => {
       />
 
       <ToolbarButton
-        icon={MdImage}
-        title="Insert Image"
-        onClick={handleImageUpload}
-      />
-
-      {/* Hidden wrapper for UploadButton; we render it so its internal file input can be triggered */}
-       {/* Upload button directly in toolbar */}
-       {UploadButtonComp && (
-         <div className="ml-2">
-           {/* @ts-ignore */}
-           <UploadButtonComp
-             endpoint="editorImages"
-             onClientUploadComplete={(res: any) => {
-              // eslint-disable-next-line no-console
-              console.log('[uploadthing] toolbar upload complete', res);
-              if (!res || !Array.isArray(res) || !res[0] || !res[0].url) {
-                // eslint-disable-next-line no-console
-                console.error('[uploadthing] no url returned', res);
-                alert("Image upload failed or no URL returned. See console.");
-                return;
-              }
-              editor.chain().focus().setImage({ src: res[0].url }).run();
-             }}
-            onUploadError={(err: any) => {
-              // eslint-disable-next-line no-console
-              console.error('[uploadthing] toolbar upload error', err);
-              try { alert('Image upload failed: ' + (err?.message ?? JSON.stringify(err))); } catch (e) {}
-            }}
-           />
-         </div>
-       )}
-
-      <div className="w-px h-6 bg-gray-500 mx-2" />
-
-      <ToolbarButton
         icon={MdFormatAlignLeft}
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         active={editor.isActive({ textAlign: "left" })}
@@ -329,40 +220,14 @@ export default function TipTapEditor({
 
   return (
     <div className="border border-slate-700 rounded-lg overflow-hidden bg-slate-900">
-      <Toolbar editor={editor} />
-      <EditorContent editor={editor} />
-      {/* Visible test UploadButton for debugging */}
-       {/* UploadButton moved to toolbar above */}
+      {editor ? (
+        <>
+          <Toolbar editor={editor} />
+          <EditorContent editor={editor} />
+        </>
+      ) : (
+        <div className="p-4 text-slate-400">Loading editor…</div>
+      )}
     </div>
   );
-// Visible test UploadButton for debugging
-function TestUploadButton({ editor }: { editor: any }) {
-  const [Comp, setComp] = useState<any>(null);
-  useEffect(() => {
-    let mounted = true;
-    import("@uploadthing/react").then((m) => {
-      const C = m?.UploadButton ?? (m?.generateUploadButton ? m.generateUploadButton() : null);
-      if (mounted) setComp(() => C);
-    });
-    return () => { mounted = false; };
-  }, []);
-  if (!Comp) return <div>Loading UploadButton…</div>;
-  return (
-    <Comp
-      endpoint="editorImages"
-      onClientUploadComplete={(res: any) => {
-        // eslint-disable-next-line no-console
-        console.log('[uploadthing] test button upload complete', res);
-        if (editor && res && Array.isArray(res) && res[0] && res[0].url) {
-          editor.chain().focus().setImage({ src: res[0].url }).run();
-        }
-      }}
-      onUploadError={(err: any) => {
-        // eslint-disable-next-line no-console
-        console.error('[uploadthing] test button upload error', err);
-        try { alert('Image upload failed: ' + (err?.message ?? JSON.stringify(err))); } catch (e) {}
-      }}
-    />
-  );
-}
 }

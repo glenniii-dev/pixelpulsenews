@@ -56,6 +56,14 @@
   display: none; /* Hide All Scrollbars */
 }
 
+@theme {
+  --color-serene-400: #192A51;
+  --color-serene-300: #967AA1;
+  --color-serene-200: #AAA1C8;
+  --color-serene-100: #D5C6E0;
+  --color-serene-50: #FDF7F8;
+}
+
 @layer {
   .bg-rich-black {
     background-color: var(--rich-black);
@@ -198,19 +206,19 @@
 
 .rich-text { font-size: 16px; line-height: 1.3; font-weight: 400; font-family: 'Times New Roman'; }
 
-.rich-text p { margin-bottom: 1em; color: #292929; }
+.rich-text p { margin-bottom: 1em; color: #192A51; }
 
-.rich-text h1 { font-size: 2.25em; font-weight: 700; margin: 32px 0; }
+.rich-text h1 { font-size: 2.25em; font-weight: 700; margin: 32px 0; color: #192A51; }
 
-.rich-text h2 { font-size: 1.75em; font-weight: 700; margin: 24px 0; }
+.rich-text h2 { font-size: 1.75em; font-weight: 700; margin: 24px 0; color: #192A51; }
 
-.rich-text h3 { font-size: 1.5em;  font-weight: 600; margin: 20px 0; }
+.rich-text h3 { font-size: 1.5em;  font-weight: 600; margin: 20px 0; color: #192A51; }
 
-.rich-text h4 { font-size: 1.25em; font-weight: 500; margin: 16px 0; }
+.rich-text h4 { font-size: 1.25em; font-weight: 500; margin: 16px 0; color: #192A51; }
 
-.rich-text h5 { font-size: 1.1em;  font-weight: 400; margin: 12px 0; }
+.rich-text h5 { font-size: 1.1em;  font-weight: 400; margin: 12px 0; color: #192A51; }
 
-.rich-text h6 { font-size: 1em;    font-weight: 400; margin: 8px 0; }
+.rich-text h6 { font-size: 1em;    font-weight: 400; margin: 8px 0; color: #192A51; }
 
 .rich-text strong { font-weight: 700; }
 
@@ -220,7 +228,7 @@
 
 .rich-text li { margin-bottom: 8px; }
 
-.rich-text a { color: #007AFF }
+.rich-text a { color: #967AA1; }
 
 @media (min-width: 1000px) {
   .rich-text { font-size: 18px; line-height: 1.6; }
