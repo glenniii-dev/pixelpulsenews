@@ -9,7 +9,7 @@ export default function Page() {
   const [activeFilter, setActiveFilter] = useState("all");
 
   return (
-    <main className="flex flex-col flex-wrap items-center p-10 lg:py-15 text-serene-400 gap-6 max-w-350 mx-auto">
+    <main className="flex flex-col flex-wrap items-center py-10 px-5 sm:p-10 lg:py-15 text-serene-400 gap-6 max-w-350 mx-auto">
       <div className="flex flex-col w-full text-center">
         <h2 className="text-5xl font-bold mb-4">Research Papers</h2>
         <h3 className="text-lg mb-4">
