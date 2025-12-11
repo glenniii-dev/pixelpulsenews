@@ -60,7 +60,7 @@ export default function page() {
           ))}
         </div>
         <Button variant="shadow" size="full" className="max-w-90">
-          <Link href="/team">Meet Whole The Team</Link>
+          <Link href="/team">Meet The Whole Team</Link>
         </Button>
       </section>
 

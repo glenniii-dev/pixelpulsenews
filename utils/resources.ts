@@ -2,10 +2,6 @@ import type Resource from "@/types/Resource";
 
 const resources: Resource[] = [
   {
-    topic: "Scholarship Websites",
-    document: "Scholarship-Websites.docx.pdf"
-  },
-  {
     topic: "Extracurriculars for STEM",
     document: "ECs-STEM.docx.pdf"
   },
@@ -19,7 +15,7 @@ const resources: Resource[] = [
   },
   {
     topic: "How to Pay Off College",
-    document: "How-to-Pay-Off-College.docx.pdf"
+    document: "How-to-pay-off-college.docx.pdf"
   },
   {
     topic: "Scholarships in Technology",
@@ -79,7 +75,7 @@ const resources: Resource[] = [
   },
   {
     topic: "Dual Enrollment",
-    document: "Dual-Enrollment.docx.pdf"
+    document: "Dual-enrollment.docx.pdf"
   },
   {
     topic: "STEM Extracurriculars",
