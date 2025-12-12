@@ -90,6 +90,12 @@ const teamMembers: Member[] = [
     name: "Ishaq",
     role: "Content Writer",
     bio: "Hi everyone, I'm 17 and in Year 13, currently studying for my A-Levels in London. I study Maths, Further Maths, Physics and Computer Science, and after university, I want to go into Software Engineering or A.I, although I may not stay in it forever. Outside of academics, I enjoy playing and watching squash, programming and playing video games.",
+  },
+  {
+    image: "/ivanka.jpg",
+    name: "Ivanka Nkwanzi",
+    role: "Graphic Designer",
+    bio: "Hello! I'm Ivanka, and I'm currently a senior in high school. I hope to study medicine in college next year. I'm passionate about STEM and love exploring anything that feeds my curiosity. Outside of academics, I play the piano and bass guitar, and I love reading novels."
   }
 ];
 

@@ -52,7 +52,7 @@ export const researchItems: ResearchItems[] = [
     title: "The Psychology of STEM Education: Gender Perspectives",
     summary:
       "A comprehensive study examining psychological factors affecting gender representation in STEM fields.",
-    link: "#",
+    link: "/research/The Psychology of Gender Bias in STEM Fields.pdf",
   },
 ];
 
