@@ -137,7 +137,7 @@ export default function Page() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-serene-400" />
       </div>
     );
   }
@@ -145,8 +145,8 @@ export default function Page() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-100">Manage Articles</h1>
-        <p className="mt-2 text-sm text-slate-400">Create and manage your newsletter</p>
+        <h1 className="text-3xl font-bold text-serene-400">Manage Newsletters</h1>
+        <p className="mt-2 text-sm text-serene-300">Create and manage your newsletters</p>
       </header>
 
       {/* Error banner */}
@@ -158,15 +158,15 @@ export default function Page() {
       )}
 
       {/* ---------- FORM ---------- */}
-      <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg shadow-lg border border-slate-700 p-6 mb-8">
-        <h2 className="text-lg font-medium text-slate-100 mb-4">
-          {editingArticle ? "Edit Article" : "Create Article"}
+      <div className="bg-white rounded-lg shadow-lg border border-serene-100 p-6 mb-8">
+        <h2 className="text-lg font-medium text-serene-400 mb-4">
+          {editingArticle ? "Edit Newsletter" : "Create Newsletter"}
         </h2>
 
         <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
           {/* Date */}
           <div>
-            <label htmlFor="date" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="date" className="block text-sm font-medium text-serene-400">
               Date
             </label>
             <input
@@ -175,13 +175,13 @@ export default function Page() {
               required
               value={formData.date}
               onChange={(e) => setFormData((p) => ({ ...p, date: e.target.value }))}
-              className="mt-1 block w-full rounded-md bg-slate-900/50 border-slate-700 text-slate-100 shadow-sm p-2"
+              className="mt-1 block w-full rounded-md bg-serene-50 border border-serene-200 text-serene-400 shadow-sm p-2 focus:outline-none focus:border-serene-300"
             />
           </div>
 
           {/* Edition */}
           <div>
-            <label htmlFor="edition" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="edition" className="block text-sm font-medium text-serene-400">
               Edition
             </label>
             <input
@@ -191,13 +191,13 @@ export default function Page() {
               placeholder="e.g. #42"
               value={formData.edition}
               onChange={(e) => setFormData((p) => ({ ...p, edition: e.target.value }))}
-              className="mt-1 block w-full rounded-md bg-slate-900/50 border-slate-700 text-slate-100 shadow-sm p-2"
+              className="mt-1 block w-full rounded-md bg-serene-50 border border-serene-200 text-serene-400 shadow-sm p-2 focus:outline-none focus:border-serene-300"
             />
           </div>
 
           {/* Title (full width) */}
           <div className="md:col-span-2">
-            <label htmlFor="title" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="title" className="block text-sm font-medium text-serene-400">
               Title
             </label>
             <input
@@ -206,7 +206,7 @@ export default function Page() {
               required
               value={formData.title}
               onChange={(e) => setFormData((p) => ({ ...p, title: e.target.value, slug: e.target.value.toLowerCase().replace(/\s+/g, '-') }))}
-              className="mt-1 block w-full rounded-md bg-slate-900/50 border-slate-700 text-slate-100 shadow-sm p-2"
+              className="mt-1 block w-full rounded-md bg-serene-50 border border-serene-200 text-serene-400 shadow-sm p-2 focus:outline-none focus:border-serene-300"
             />
           </div>
 
@@ -217,16 +217,16 @@ export default function Page() {
               type="checkbox"
               checked={formData.isPublished}
               onChange={(e) => setFormData((p) => ({ ...p, isPublished: e.target.checked }))}
-              className="h-4 w-4 rounded border-slate-600 bg-slate-900/50 text-[#007AFF] focus:ring-[#007AFF]"
+              className="h-4 w-4 rounded border-serene-300 bg-serene-50 text-serene-400 focus:ring-serene-300"
             />
-            <label htmlFor="isPublished" className="text-sm font-medium text-slate-300">
+            <label htmlFor="isPublished" className="text-sm font-medium text-serene-400">
               Publish
             </label>
           </div>
 
           {/* TipTap Editor (full width) */}
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-serene-400 mb-2">
               Content
             </label>
             <TipTapEditor
@@ -237,7 +237,7 @@ export default function Page() {
           </div>
           {/* TipTap Editor (full width) */}
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-serene-400 mb-2">
               Bibliography
             </label>
             <TipTapEditor
@@ -252,14 +252,14 @@ export default function Page() {
               <button
                 type="button"
                 onClick={handleCancel}
-                className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-slate-300 bg-slate-800/50 border border-slate-600 rounded-lg hover:bg-slate-700/50"
+                className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-serene-400 bg-white border border-serene-200 rounded-lg hover:bg-serene-50 transition"
               >
                 Cancel
               </button>
             )}
             <button
               type="submit"
-              className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-white bg-[#007AFF] rounded-lg hover:bg-[#0056B3]"
+              className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-white bg-serene-400 rounded-lg hover:bg-serene-300 transition"
             >
               {editingArticle ? "Update" : "Create"}
             </button>
@@ -268,22 +268,22 @@ export default function Page() {
       </div>
 
       {/* ---------- LIST ---------- */}
-      <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg shadow-lg border border-slate-700">
+      <div className="bg-white rounded-lg shadow-lg border border-serene-100">
         <div className="p-6">
-          <h2 className="text-lg font-medium text-slate-100 mb-4">Articles</h2>
+          <h2 className="text-lg font-medium text-serene-400 mb-4">Newsletters</h2>
 
           {newsletters.length === 0 ? (
-            <p className="text-sm text-slate-400">No newsletters yet.</p>
+            <p className="text-sm text-serene-300">No newsletters yet.</p>
           ) : (
             <div className="space-y-4">
               {newsletters.map((b) => (
                 <div
                   key={b.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-slate-700/50 rounded-lg"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-serene-50 rounded-lg transition"
                 >
                   <div className="flex-1 mb-3 sm:mb-0 sm:mr-4">
-                    <h3 className="text-sm font-medium text-slate-100">{b.title}</h3>
-                    <p className="mt-1 text-sm text-slate-400">
+                    <h3 className="text-sm font-medium text-serene-400">{b.title}</h3>
+                    <p className="mt-1 text-sm text-serene-300">
                       {b.edition} • {new Date(b.date).toLocaleDateString()} •{" "}
                       {new Date(b.createdAt).toLocaleDateString()}
                       {b.isPublished ? " • Published" : " • Draft"}
@@ -293,14 +293,14 @@ export default function Page() {
                   <div className="flex space-x-2 self-end sm:self-center">
                     <button
                       onClick={() => handleEdit(b)}
-                      className="p-2 text-slate-400 hover:text-[#007AFF]"
+                      className="p-2 text-serene-300 hover:text-serene-400 transition"
                       title="Edit"
                     >
                       <MdEdit className="h-5 w-5" />
                     </button>
                     <button
                       onClick={() => handleDelete(b.id)}
-                      className="p-2 text-slate-400 hover:text-red-400"
+                      className="p-2 text-serene-300 hover:text-red-400 transition"
                       title="Delete"
                     >
                       <MdDelete className="h-5 w-5" />

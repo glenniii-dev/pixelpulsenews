@@ -7,6 +7,14 @@ interface ResearchItems {
 }
 
 export const researchItems: ResearchItems[] = [
+    {
+    id: "psychology",
+    date: "December 3, 2025",
+    title: "Doomscrolling",
+    summary:
+      "Doomscrolling can have many negative effects on the emotional well-being and mental health of all individuals. Thus, it's important to recognize this behavioral pattern and how to combat this vicious cycle.",
+    link: "/research/Doomscrolling.pdf",
+  },
   {
     id: "psychology",
     date: "October 29, 2025",
@@ -53,7 +61,7 @@ export const researchItems: ResearchItems[] = [
     summary:
       "A comprehensive study examining psychological factors affecting gender representation in STEM fields.",
     link: "/research/The Psychology of Gender Bias in STEM Fields.pdf",
-  },
+  }
 ];
 
 // DO NOT EDIT BELOW THIS LINE - used for filtering
