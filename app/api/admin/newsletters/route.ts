@@ -1,6 +1,6 @@
 import { db } from "@/db/db";
 import { newsletters } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, asc } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -8,7 +8,7 @@ export async function GET() {
     const all = await db
       .select()
       .from(newsletters)
-      .orderBy(desc(newsletters.date));
+      .orderBy(asc(newsletters.order));
 
     return NextResponse.json({ newsletters: all });
   } catch (e) {
@@ -24,7 +24,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { date, title, slug, edition, content, bibliography, isPublished } = body;
+    const { date, title, slug, edition, content, bibliography, isPublished, order } = body;
 
     const [newNl] = await db
       .insert(newsletters)
@@ -36,6 +36,7 @@ export async function POST(request: Request) {
         content,
         bibliography,
         isPublished: isPublished ?? false,
+        order: order ?? "0",
       })
       .returning();
 
@@ -54,11 +55,14 @@ export async function PUT(request: Request) {
     if (!id) throw new Error("id required");
 
     const body = await request.json();
-    const { date, title, slug, edition, content, bibliography,isPublished } = body;
+    const { date, title, slug, edition, content, bibliography, isPublished, order } = body;
+
+    const setObj: any = { date, title, slug, edition, content, bibliography, isPublished };
+    if (order !== undefined) setObj.order = order;
 
     const [updated] = await db
       .update(newsletters)
-      .set({ date, title, slug, edition, content, bibliography, isPublished })
+      .set(setObj)
       .where(eq(newsletters.id, id))
       .returning();
 

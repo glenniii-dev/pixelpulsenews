@@ -22,6 +22,7 @@ export default async function Page() {
       ) : (
         articles.map((item) => (
           <ArticleCard
+            key={item.id}
             title={item.title}
             submittedTo={item.submittedTo}
             slug={`/articles/${item.slug}`}

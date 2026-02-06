@@ -21,7 +21,6 @@ export default function Header() {
             <Link href="/research" className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Research</Link>
             <Link href="/articles" className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Articles</Link>
             <Link href="/resources" className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Resources</Link>
-            <Link href="/podcasts" className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Podcasts</Link>
             <Link href="/team" className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Team</Link>
           </ul>
         </nav>
@@ -66,7 +65,6 @@ export default function Header() {
             <Link href="/research" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Research</Link>
             <Link href="/articles" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Articles</Link>
             <Link href="/resources" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Resources</Link>
-            <Link href="/podcasts" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Podcasts</Link>
             <Link href="/team" onClick={() => setOpen(false)} className="hover:underline hover:underline-offset-4 hover:decoration-serene-400 hover:decoration-2">Team</Link>
           </ul>
         </div>

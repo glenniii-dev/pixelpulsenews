@@ -50,8 +50,8 @@ const ToolbarButton = ({
     onClick={onClick}
     type="button"
     title={title}
-    className={`p-2 rounded transition text-white ${
-      active ? "bg-blue-600" : "bg-slate-900 hover:bg-slate-700"
+    className={`p-2 rounded transition ${
+      active ? "bg-serene-400 text-white" : "bg-serene-100 text-serene-400 hover:bg-serene-200"
     }`}
   >
     <Icon size={18} />
@@ -68,7 +68,7 @@ const Toolbar = ({ editor }: { editor: any }) => {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-1 p-2 bg-slate-800 border-b border-slate-700">
+    <div className="flex flex-wrap items-center gap-1 p-2 bg-serene-50 border-b border-serene-200">
       <ToolbarButton
         icon={MdFormatBold}
         title="Bold"
@@ -194,18 +194,18 @@ export default function TipTapEditor({
     editorProps: {
       attributes: {
         class:
-          "prose prose-invert max-w-none focus:outline-none p-4 min-h-[300px] text-white " +
-          "[&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mt-8 [&_h1]:mb-4 " +
-          "[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mt-6 [&_h2]:mb-3 " +
-          "[&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-5 [&_h3]:mb-2 " +
-          "[&_h4]:text-lg [&_h4]:font-medium [&_h4]:mt-4 [&_h4]:mb-2 " +
-          "[&_ul]:list-disc [&_ul]:ml-6 [&_ul]:my-2 " +
-          "[&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:my-2 " +
-          "[&_li]:my-1 " +
-          "[&_blockquote]:border-l-4 [&_blockquote]:border-slate-600 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-400 [&_blockquote]:my-4 " +
-          "[&_code]:bg-slate-800 [&_code]:text-orange-300 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm " +
+          "prose prose-sm max-w-none focus:outline-none p-4 min-h-[300px] text-serene-400 bg-white " +
+          "[&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mt-8 [&_h1]:mb-4 [&_h1]:text-serene-400 " +
+          "[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mt-6 [&_h2]:mb-3 [&_h2]:text-serene-400 " +
+          "[&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-5 [&_h3]:mb-2 [&_h3]:text-serene-400 " +
+          "[&_h4]:text-lg [&_h4]:font-medium [&_h4]:mt-4 [&_h4]:mb-2 [&_h4]:text-serene-400 " +
+          "[&_ul]:list-disc [&_ul]:ml-6 [&_ul]:my-2 [&_ul]:text-serene-400 " +
+          "[&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:my-2 [&_ol]:text-serene-400 " +
+          "[&_li]:my-1 [&_li]:text-serene-400 " +
+          "[&_blockquote]:border-l-4 [&_blockquote]:border-serene-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-serene-300 [&_blockquote]:my-4 " +
+          "[&_code]:bg-serene-100 [&_code]:text-serene-600 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm " +
           "[&_[style*='text-align:left']]:text-left [&_[style*='text-align:center']]:text-center [&_[style*='text-align:right']]:text-right [&_[style*='text-align:justify']]:text-justify " +
-          "[&_a]:text-blue-400 [&_a]:underline hover:[&_a]:text-blue-300",
+          "[&_a]:text-serene-400 [&_a]:underline hover:[&_a]:text-serene-300",
         placeholder,
       },
     },
@@ -219,14 +219,14 @@ export default function TipTapEditor({
   }, [value, editor]);
 
   return (
-    <div className="border border-slate-700 rounded-lg overflow-hidden bg-slate-900">
+    <div className="border border-serene-200 rounded-lg overflow-hidden bg-white">
       {editor ? (
         <>
           <Toolbar editor={editor} />
           <EditorContent editor={editor} />
         </>
       ) : (
-        <div className="p-4 text-slate-400">Loading editor…</div>
+        <div className="p-4 text-serene-300">Loading editor…</div>
       )}
     </div>
   );

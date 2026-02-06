@@ -29,6 +29,48 @@
       "when": 1763411450123,
       "tag": "0003_good_molten_man",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1770377214116,
+      "tag": "0004_eager_wonder_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1770382130104,
+      "tag": "0005_giant_bill_hollister",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1770382663469,
+      "tag": "0006_keen_lionheart",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1770383550576,
+      "tag": "0007_dark_lionheart",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1770388726041,
+      "tag": "0008_loose_nuke",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1770391079654,
+      "tag": "0009_abandoned_lady_bullseye",
+      "breakpoints": true
     }
   ]
 }

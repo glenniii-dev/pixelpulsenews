@@ -249,6 +249,20 @@ As you complete chapters or platform features, please:
 
 ---
 
+## Cloudflare R2 setup (admin uploads)
+
+To enable file uploads (PDFs, images) to Cloudflare R2, set these environment variables in your `.env` file:
+
+- `CF_R2_ACCESS_KEY_ID` — your R2 access key id
+- `CF_R2_SECRET_ACCESS_KEY` — your R2 secret
+- `CF_R2_ENDPOINT` — R2 endpoint, e.g. `https://<account>.r2.cloudflarestorage.com`
+- `CF_R2_BUCKET` — the bucket name to use
+- `CF_R2_REGION` — optional region (default `auto`)
+
+The admin UI will upload files to `/api/admin/upload` and return a public URL used by the research/resources/team APIs.
+
+After adding or changing database schemas in `db/schema.ts`, run the usual drizzle generate/migrate steps described above.
+
 ## Credits
 
 Created with 🤍 by the Pixel Pulse Development team.

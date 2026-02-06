@@ -1,8 +1,9 @@
 export default function StatsCard({ title, value }: { title: string, value: number }) {
   return (
-    <section className="bg-white rounded-lg p-4 min-w-50 min-h-25 text-center flex-row items-center border border-serene-100 shadow-sm hover:shadow-md transition">
-      <h3 className="text-xl font-extrabold text-serene-400">{title}</h3>
-      <p className="text-2xl font-bold text-serene-300">{value}</p>
-    </section>
+    <div className="bg-white border border-serene-200 rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-32 text-center hover:shadow-md hover:border-serene-300 transition duration-300">
+      <h3 className="text-sm sm:text-base font-semibold text-serene-300 mb-2">{title}</h3>
+      <p className="text-3xl sm:text-4xl font-bold text-serene-400">{value}</p>
+    </div>
   )
 }
+

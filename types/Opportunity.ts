@@ -1,8 +1,12 @@
 type Opportunity = {
-    name: string,
-    description: string,
-    date: string,
-    location: string
+    id: string;
+    name: string;
+    description: string;
+    date: string;
+    location: string;
+    isPublished: boolean;
+    order?: string;
+    createdAt: Date;
 }
 
 export default Opportunity

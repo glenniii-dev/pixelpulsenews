@@ -1,12 +1,22 @@
 import TeamMember from "@/components/cards/TeamMember";
 import { Button } from "@/components/ui/button"
-import teamMembers from "@/utils/team";
+import { db } from "@/db/db";
+import { team, opportunities as oppTable } from "@/db/schema";
+import { asc, desc } from "drizzle-orm";
 import Link from "next/link";
 import { FaGraduationCap, FaMicroscope, FaNewspaper } from "react-icons/fa";
-import opportunities from "@/utils/opportunities";
 import type Opportunity from "@/types/Opportunity";
 
-export default function page() {
+export default async function page() {
+  const topTeam = await db.select().from(team).orderBy(asc(team.order)).limit(3);
+  let allOpportunities = [];
+  try {
+    allOpportunities = await db.select().from(oppTable).orderBy(asc(oppTable.order));
+  } catch (err) {
+    console.error("Opportunities order query failed, falling back to createdAt:", err);
+    allOpportunities = await db.select().from(oppTable).orderBy(desc(oppTable.createdAt));
+  }
+
   return (
     <main>
 
@@ -48,7 +58,7 @@ export default function page() {
           Discover every single one of the passionate minds behind Pixel Pulse!
         </p>
         <div className="flex flex-row flex-wrap w-auto max-width-80 gap-5 justify-center items-center mb-8">
-          {teamMembers.slice(0, 3).map(({ image, name, role, bio }, index) => (
+          {topTeam.map(({ image, name, role, bio }, index) => (
             <TeamMember
               key={index}
               image={image}
@@ -78,7 +88,7 @@ export default function page() {
             <p>Location</p>
           </div>
 
-          {opportunities.map((opportunity: Opportunity, index: number) => (
+          {allOpportunities.map((opportunity: Opportunity, index: number) => (
             <div
               key={index}
               className="p-4 mb-4 border border-serene-200 rounded-lg shadow-sm hover:shadow-md transition"
@@ -118,11 +128,7 @@ export default function page() {
         </div>
       </section>
 
-      {/* Instagram Section */}    
-      <section className="h-auto w-full flex flex-col items-center justify-center gap-4 px-4 md:px-8 py-20 bg-white text-serene-400 mt-10">
-        <h2 className="text-5xl font-bold mb-4 text-center">Instagram</h2>
-        <p className="max-w-3xl text-lg mb-4">Follow <Link href="https://www.instagram.com/pixelpulsenews/" className="font-bold text-serene-300">@pixelpulsenews</Link></p>
-      </section>
+      
 
     </main>
   )

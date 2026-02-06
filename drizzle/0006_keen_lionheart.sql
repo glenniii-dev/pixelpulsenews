@@ -1,0 +1,1 @@
+ALTER TABLE "research" ADD COLUMN "category" varchar DEFAULT 'All' NOT NULL;

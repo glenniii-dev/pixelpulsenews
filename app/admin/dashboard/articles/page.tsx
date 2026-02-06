@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete, MdArrowUpward, MdArrowDownward } from "react-icons/md";
 import TipTapEditor from "@/components/admin/TipTapEditor";
 import type Article from "@/types/Article";
 
@@ -79,11 +79,13 @@ export default function Page() {
       : "/api/admin/articles";
 
     try {
+      const payload = editingArticle ? formData : { ...formData, order: String(articles.length) };
+
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -152,6 +154,38 @@ export default function Page() {
       setArticles((prev) => prev.filter((x) => x.id !== id));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Delete error");
+    }
+  };
+
+  const handleMove = async (id: any, direction: "up" | "down") => {
+    try {
+      const sorted = [...articles].sort((a, b) => Number(a.order ?? 0) - Number(b.order ?? 0));
+      const currentIndex = sorted.findIndex((m) => m.id === id);
+      if (currentIndex === -1) return;
+      if (direction === "up" && currentIndex === 0) return;
+      if (direction === "down" && currentIndex === sorted.length - 1) return;
+
+      const newIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+      [sorted[currentIndex], sorted[newIndex]] = [sorted[newIndex], sorted[currentIndex]];
+
+      const updates = [
+        { id: sorted[newIndex].id, order: String(newIndex) },
+        { id: sorted[currentIndex].id, order: String(currentIndex) },
+      ];
+
+      for (const update of updates) {
+        const res = await fetch(`/api/admin/articles?id=${update.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ order: update.order }),
+        });
+        if (!res.ok) throw new Error("Update failed");
+      }
+
+      setArticles(sorted.map((m, i) => ({ ...m, order: String(i) })));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Move error");
     }
   };
 
@@ -317,39 +351,48 @@ export default function Page() {
           {articles.length === 0 ? (
             <p className="text-sm text-serene-300">No articles yet.</p>
           ) : (
-            <div className="space-y-4">
-                {articles.map((article) => (
-                    <div
-                    key={article.id}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-serene-50 rounded-lg transition-colors"
+            <div className="space-y-3">
+              {articles.map((article) => (
+                <div
+                  key={article.id}
+                  className="flex items-center justify-between bg-white border border-serene-100 rounded-lg p-4"
+                >
+                  <div className="flex-1">
+                    <h4 className="font-medium text-serene-400">{article.title}</h4>
+                    <p className="text-xs text-serene-300 mt-1">{article.submittedTo || article.author}</p>
+                    <p className="text-sm text-serene-300">{article.date}</p>
+                    <span className={`text-xs font-semibold ${article.isPublished ? "text-green-600" : "text-yellow-600"}`}>
+                      {article.isPublished ? "Published" : "Draft"}
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleMove(article.id, "up")}
+                      className="p-2 rounded-md bg-serene-100 hover:bg-serene-200"
                     >
-                    <div className="flex-1 mb-3 sm:mb-0 sm:mr-4">
-                        <h3 className="text-sm font-medium text-serene-400">{article.title}</h3>
-                        <p className="mt-1 text-sm text-serene-300">
-                        {article.author} • {new Date(article.date).toLocaleDateString()} •{" "}
-                        {new Date(article.createdAt).toLocaleDateString()}
-                        {article.isPublished ? " • Published" : " • Draft"}
-                        </p>
-                    </div>
-
-                    <div className="flex space-x-2 self-end sm:self-center">
-                        <button
-                        onClick={() => handleEdit(article)}
-                        className="p-2 text-serene-300 hover:text-serene-400 transition-colors"
-                        title="Edit"
-                        >
-                        <MdEdit className="h-5 w-5" />
-                        </button>
-                        <button
-                        onClick={() => handleDelete(article.id)}
-                        className="p-2 text-serene-300 hover:text-red-400 transition-colors"
-                        title="Delete"
-                        >
-                        <MdDelete className="h-5 w-5" />
-                        </button>
-                    </div>
-                    </div>
-                ))}
+                      <MdArrowUpward className="text-serene-400" size={18} />
+                    </button>
+                    <button
+                      onClick={() => handleMove(article.id, "down")}
+                      className="p-2 rounded-md bg-serene-100 hover:bg-serene-200"
+                    >
+                      <MdArrowDownward className="text-serene-400" size={18} />
+                    </button>
+                    <button
+                      onClick={() => handleEdit(article)}
+                      className="p-2 rounded-md bg-serene-100 hover:bg-serene-200"
+                    >
+                      <MdEdit className="text-serene-400" size={18} />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(article.id)}
+                      className="p-2 rounded-md bg-red-100 hover:bg-red-200"
+                    >
+                      <MdDelete className="text-red-600" size={18} />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>

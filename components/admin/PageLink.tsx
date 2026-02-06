@@ -5,15 +5,27 @@ export default function PageLink({ title }: { title: string }) {
   return (
     <Link
       href={`/admin/dashboard/${title.toLowerCase()}`}
-      className="bg-white border-2 border-serene-200 rounded-lg p-4 w-[calc(100vw_-_80px)] min-h-15 flex flex-row justify-between items-center text-serene-400 hover:bg-serene-50 hover:border-serene-300 transition shadow-sm hover:shadow-md"
+      className="group relative overflow-hidden bg-white border border-serene-200 rounded-lg p-6 sm:p-8 flex flex-col justify-between min-h-40 text-serene-400 hover:shadow-lg hover:border-serene-300 transition duration-300"
     >
-      <h3 className="text-2xl font-extrabold">
-        {title}
-      </h3>
-      <MdArrowOutward
-        size={32}
-        className="text-serene-400"
-      />
+      {/* Background gradient on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-serene-50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
+      
+      {/* Content */}
+      <div className="relative z-10">
+        <h3 className="text-2xl sm:text-3xl font-bold text-serene-400 group-hover:text-serene-500 transition">
+          {title}
+        </h3>
+      </div>
+
+      {/* Icon */}
+      <div className="relative z-10 flex justify-end">
+        <div className="p-2 bg-serene-100 rounded-full group-hover:bg-serene-200 transition">
+          <MdArrowOutward
+            size={24}
+            className="text-serene-400 group-hover:text-serene-500 transition"
+          />
+        </div>
+      </div>
     </Link>
   );
 }

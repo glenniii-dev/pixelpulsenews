@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete, MdArrowUpward, MdArrowDownward } from "react-icons/md";
 import TipTapEditor from "@/components/admin/TipTapEditor";
 
 type Article = {
@@ -13,6 +13,7 @@ type Article = {
   content: string;
   bibliography: string;
   isPublished: boolean;
+    order?: string;
   createdAt: string;
 };
 
@@ -84,11 +85,13 @@ export default function Page() {
       : "/api/admin/newsletters";
 
     try {
+      const payload = editingArticle ? formData : { ...formData, order: String(newsletters.length) };
+
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("Save failed");
       const { newsletter } = await res.json();
@@ -131,6 +134,38 @@ export default function Page() {
       setArticles((prev) => prev.filter((x) => x.id !== id));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Delete error");
+    }
+  };
+
+  const handleMove = async (id: any, direction: "up" | "down") => {
+    try {
+      const sorted = [...newsletters].sort((a, b) => Number(a.order ?? 0) - Number(b.order ?? 0));
+      const currentIndex = sorted.findIndex((m) => m.id === id);
+      if (currentIndex === -1) return;
+      if (direction === "up" && currentIndex === 0) return;
+      if (direction === "down" && currentIndex === sorted.length - 1) return;
+
+      const newIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+      [sorted[currentIndex], sorted[newIndex]] = [sorted[newIndex], sorted[currentIndex]];
+
+      const updates = [
+        { id: sorted[newIndex].id, order: String(newIndex) },
+        { id: sorted[currentIndex].id, order: String(currentIndex) },
+      ];
+
+      for (const update of updates) {
+        const res = await fetch(`/api/admin/newsletters?id=${update.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ order: update.order }),
+        });
+        if (!res.ok) throw new Error("Update failed");
+      }
+
+      setArticles(sorted.map((m, i) => ({ ...m, order: String(i) })));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Move error");
     }
   };
 
@@ -291,6 +326,20 @@ export default function Page() {
                   </div>
 
                   <div className="flex space-x-2 self-end sm:self-center">
+                    <button
+                      onClick={() => handleMove(b.id, "up")}
+                      className="p-2 text-serene-300 hover:text-serene-400 transition"
+                      title="Move up"
+                    >
+                      <MdArrowUpward className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={() => handleMove(b.id, "down")}
+                      className="p-2 text-serene-300 hover:text-serene-400 transition"
+                      title="Move down"
+                    >
+                      <MdArrowDownward className="h-5 w-5" />
+                    </button>
                     <button
                       onClick={() => handleEdit(b)}
                       className="p-2 text-serene-300 hover:text-serene-400 transition"

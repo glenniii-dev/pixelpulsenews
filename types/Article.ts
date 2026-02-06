@@ -8,6 +8,7 @@ type Article = {
   author: string;
   bibliography: string;
   isPublished: boolean;
+  order?: string;
   createdAt: string;
 }
 

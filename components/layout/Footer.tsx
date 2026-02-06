@@ -12,7 +12,6 @@ export default function Footer() {
         <nav className="text-serene-300 flex flex-wrap flex-col space-y-2">
           <Link href="/" className="hover:underline hover:underline-offset-4 hover:decoration-serene-300 hover:decoration-2">Home</Link>
           <Link href="/team" className="hover:underline hover:underline-offset-4 hover:decoration-serene-300 hover:decoration-2">Team</Link>
-          <Link href="/podcasts" className="hover:underline hover:underline-offset-4 hover:decoration-serene-300 hover:decoration-2">Podcasts</Link>
           <Link href="/newsletters" className="hover:underline hover:underline-offset-4 hover:decoration-serene-300 hover:decoration-2">Newsletters</Link>
         </nav>
       </div>

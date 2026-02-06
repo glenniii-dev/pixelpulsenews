@@ -1,8 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import TeamMember from "@/components/cards/TeamMember";
-import teamMembers from "@/utils/team";
 import type Member from "@/types/Member";
 
+type TeamMemberWithId = Member & { id: string; order?: string };
+
 export default function page() {
+  const [members, setMembers] = useState<TeamMemberWithId[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/admin/team");
+        const data = await res.json();
+        setMembers(data.team ?? []);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  if (loading) return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+
   return (
     <main className="flex flex-row flex-wrap justify-center items-center p-10 lg:py-15 text-serene-400 gap-6 max-w-350 mx-auto">
       <div className="flex flex-col mb-6 w-full text-center">
@@ -12,16 +35,20 @@ export default function page() {
         </h3>
       </div>
 
-      {teamMembers.map(({ image, name, role, bio }, index) => (
-        <TeamMember
-          key={index}
-          image={image}
-          name={name}
-          role={role}
-          bio={bio}
-          serene={true}
-        />
-      ))}
+      {members.length === 0 ? (
+        <p className="text-serene-300">No team members yet.</p>
+      ) : (
+        [...members].sort((a, b) => Number(a.order ?? 0) - Number(b.order ?? 0)).map(({ image, name, role, bio, id }) => (
+          <TeamMember
+            key={id}
+            image={image}
+            name={name}
+            role={role}
+            bio={bio}
+            serene={true}
+          />
+        ))
+      )}
 
     </main>
   )
