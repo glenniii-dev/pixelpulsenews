@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     const [newItem] = await db
       .insert(resources)
-      .values({ title, slug, content, order: order ?? "0", isPublished: isPublished ?? false })
+      .values({ title, slug, content, order: Number(order ?? 0), isPublished: isPublished ?? false })
       .returning();
     
     revalidatePath("/admin/dashboard");
@@ -42,7 +42,7 @@ export async function PUT(request: Request) {
     const { title, slug, content, order, isPublished } = body;
 
     const setObj: any = { title, slug, content };
-    if (order !== undefined) setObj.order = order;
+    if (order !== undefined) setObj.order = Number(order);
     if (isPublished !== undefined) setObj.isPublished = isPublished;
 
     const [updated] = await db.update(resources).set(setObj).where(eq(resources.id, id)).returning();

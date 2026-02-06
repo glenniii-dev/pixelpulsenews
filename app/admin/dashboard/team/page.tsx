@@ -79,13 +79,16 @@ export default function Page() {
       if (direction === "down" && currentIndex === sorted.length - 1) return;
 
       const newIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+      const itemToMove = sorted[currentIndex];
+      const itemToSwap = sorted[newIndex];
+
       // swap
       [sorted[currentIndex], sorted[newIndex]] = [sorted[newIndex], sorted[currentIndex]];
 
       // Update order values for the two swapped items
       const updates = [
-        { id: sorted[newIndex].id, order: String(newIndex) },
-        { id: sorted[currentIndex].id, order: String(currentIndex) },
+        { id: itemToSwap.id, order: currentIndex },
+        { id: itemToMove.id, order: newIndex },
       ];
 
       for (const update of updates) {
@@ -99,7 +102,7 @@ export default function Page() {
       }
 
       // Update local state to reflect new ordering and order values
-      setMembers(sorted.map((m, i) => ({ ...m, order: String(i) })));
+      setMembers(sorted.map((m, i) => ({ ...m, order: i.toString() })));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Move error");
     }

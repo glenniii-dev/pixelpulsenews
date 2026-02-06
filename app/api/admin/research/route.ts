@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { date, title, slug, category, bio, content, references, isPublished, order } = body;
 
-    const [newItem] = await db.insert(research).values({ date, title, slug, category, bio, content, references, isPublished, order: order ?? "0" }).returning();
+    const [newItem] = await db.insert(research).values({ date, title, slug, category, bio, content, references, isPublished, order: Number(order ?? 0) }).returning();
     return NextResponse.json({ research: newItem }, { status: 201 });
   } catch (e) {
     console.error(e);
@@ -36,7 +36,7 @@ export async function PUT(request: Request) {
     const { date, title, slug, category, bio, content, references, isPublished, order } = body;
 
     const setObj: any = { date, title, slug, category, bio, content, references, isPublished };
-    if (order !== undefined) setObj.order = order;
+    if (order !== undefined) setObj.order = Number(order);
 
     const [updated] = await db.update(research).set(setObj).where(eq(research.id, id)).returning();
     return NextResponse.json({ research: updated });

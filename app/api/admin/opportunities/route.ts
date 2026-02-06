@@ -35,7 +35,7 @@ export async function POST(request: Request) {
         date,
         location,
         isPublished: isPublished ?? false,
-        order: order ?? "0",
+        order: Number(order ?? 0),
       })
       .returning();
 
@@ -57,7 +57,7 @@ export async function PUT(request: Request) {
     const { name, description, date, location, isPublished, order } = body;
 
     const setObj: any = { name, description, date, location, isPublished };
-    if (order !== undefined) setObj.order = order;
+    if (order !== undefined) setObj.order = Number(order);
 
     const [updated] = await db
       .update(opportunities)

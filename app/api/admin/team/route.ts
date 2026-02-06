@@ -1,12 +1,12 @@
 import { db } from "@/db/db";
 import { team } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, asc } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
-    const all = await db.select().from(team).orderBy(desc(team.createdAt));
+    const all = await db.select().from(team).orderBy(asc(team.order));
     return NextResponse.json({ team: all });
   } catch (e) {
     console.error(e);
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { image, name, role, bio, order } = body;
 
-    const [newItem] = await db.insert(team).values({ image, name, role, bio, order: order ?? "0" }).returning();
+    const [newItem] = await db.insert(team).values({ image, name, role, bio, order: Number(order ?? 0) }).returning();
     return NextResponse.json({ member: newItem }, { status: 201 });
   } catch (e) {
     console.error(e);
@@ -36,7 +36,10 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const { image, name, role, bio, order } = body;
 
-    const [updated] = await db.update(team).set({ image, name, role, bio, ...(order !== undefined && { order }) }).where(eq(team.id, id)).returning();
+    const setObj: any = { image, name, role, bio };
+    if (order !== undefined) setObj.order = Number(order);
+
+    const [updated] = await db.update(team).set(setObj).where(eq(team.id, id)).returning();
     revalidatePath("/");
     return NextResponse.json({ member: updated });
   } catch (e) {

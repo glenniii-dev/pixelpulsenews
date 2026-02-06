@@ -71,6 +71,13 @@
       "when": 1770391079654,
       "tag": "0009_abandoned_lady_bullseye",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1770412987915,
+      "tag": "0010_gifted_meteorite",
+      "breakpoints": true
     }
   ]
 }

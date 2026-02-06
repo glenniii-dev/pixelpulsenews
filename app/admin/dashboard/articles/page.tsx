@@ -166,11 +166,14 @@ export default function Page() {
       if (direction === "down" && currentIndex === sorted.length - 1) return;
 
       const newIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+      const itemToMove = sorted[currentIndex];
+      const itemToSwap = sorted[newIndex];
+
       [sorted[currentIndex], sorted[newIndex]] = [sorted[newIndex], sorted[currentIndex]];
 
       const updates = [
-        { id: sorted[newIndex].id, order: String(newIndex) },
-        { id: sorted[currentIndex].id, order: String(currentIndex) },
+        { id: itemToSwap.id, order: currentIndex },
+        { id: itemToMove.id, order: newIndex },
       ];
 
       for (const update of updates) {
@@ -183,7 +186,7 @@ export default function Page() {
         if (!res.ok) throw new Error("Update failed");
       }
 
-      setArticles(sorted.map((m, i) => ({ ...m, order: String(i) })));
+      setArticles(sorted.map((m, i) => ({ ...m, order: i.toString() })));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Move error");
     }

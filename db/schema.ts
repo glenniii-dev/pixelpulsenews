@@ -1,4 +1,4 @@
-import { pgTable, varchar, boolean, timestamp, uuid, text } from "drizzle-orm/pg-core";
+import { pgTable, varchar, boolean, timestamp, uuid, text, integer } from "drizzle-orm/pg-core";
 
 // Admin Table
 export const admin = pgTable("admin", {
@@ -17,7 +17,7 @@ export const newsletters = pgTable("newsletters", {
   content: text("content").notNull(),
   bibliography: text("bibliography").notNull().default(""),
   isPublished: boolean("isPublished").notNull().default(false),
-  order: varchar("order").notNull().default("0"),
+  order: integer("order").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -32,7 +32,7 @@ export const articles = pgTable("articles", {
   author: text("author").notNull(),
   bibliography: text("bibliography").notNull().default(""),
   isPublished: boolean("isPublished").notNull().default(false),
-  order: varchar("order").notNull().default("0"),
+  order: integer("order").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -47,7 +47,7 @@ export const research = pgTable("research", {
   content: text("content").notNull(),
   references: text("references").notNull().default(""),
   isPublished: boolean("isPublished").notNull().default(false),
-  order: varchar("order").notNull().default("0"),
+  order: integer("order").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -58,7 +58,7 @@ export const resources = pgTable("resources", {
   slug: varchar("slug").notNull(),
   content: text("content").notNull(),
   isPublished: boolean("isPublished").notNull().default(false),
-  order: varchar("order").notNull().default("0"),
+  order: integer("order").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -69,7 +69,7 @@ export const team = pgTable("team", {
   name: varchar("name").notNull(),
   role: varchar("role").notNull(),
   bio: text("bio").notNull().default(""),
-  order: varchar("order").notNull().default("0"),
+  order: integer("order").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -81,6 +81,6 @@ export const opportunities = pgTable("opportunities", {
   date: varchar("date").notNull(),
   location: varchar("location").notNull(),
   isPublished: boolean("isPublished").notNull().default(false),
-  order: varchar("order").notNull().default("0"),
+  order: integer("order").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

@@ -36,7 +36,7 @@ export async function POST(request: Request) {
         content,
         bibliography,
         isPublished: isPublished ?? false,
-        order: order ?? "0",
+        order: Number(order ?? 0),
       })
       .returning();
 
@@ -58,7 +58,7 @@ export async function PUT(request: Request) {
     const { date, title, slug, edition, content, bibliography, isPublished, order } = body;
 
     const setObj: any = { date, title, slug, edition, content, bibliography, isPublished };
-    if (order !== undefined) setObj.order = order;
+    if (order !== undefined) setObj.order = Number(order);
 
     const [updated] = await db
       .update(newsletters)
