@@ -27,15 +27,21 @@
       "@/*": [
         "./*"
       ],
-      "@uploadthing/react": ["node_modules/@uploadthing/react/dist/index.d.ts"],
-      "@uploadthing/react/*": ["node_modules/@uploadthing/react/dist/*"]
+      "@uploadthing/react": [
+        "node_modules/@uploadthing/react/dist/index.d.ts"
+      ],
+      "@uploadthing/react/*": [
+        "node_modules/@uploadthing/react/dist/*"
+      ]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "constants/research.js"
+    "constants/research.js",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

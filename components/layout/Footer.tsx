@@ -21,7 +21,6 @@ export default function Footer() {
           <Link href="/resources" className="hover:underline hover:underline-offset-4 hover:decoration-serene-300 hover:decoration-2">Resources</Link>
           <Link href="/articles" className="hover:underline hover:underline-offset-4 hover:decoration-serene-300 hover:decoration-2">Articles</Link>
           <Link href="/research" className="hover:underline hover:underline-offset-4 hover:decoration-serene-300 hover:decoration-2">Research</Link>
-          <Link href="/admin" className="text-serene-200 hover:text-serene-100">Admin</Link>
         </nav>
       </div>
       <div>

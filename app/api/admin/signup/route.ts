@@ -4,7 +4,7 @@ import { admin } from "@/db/schema";
 import { hash } from "bcryptjs";
 import { eq } from "drizzle-orm";
 
-const SECRET_CODE = process.env.ADMIN_SECRET_CODE!;
+const SECRET_CODE = process.env.ADMIN_SECRET_CODE;
 
 export async function POST(req: Request) {
   try {
@@ -15,6 +15,15 @@ export async function POST(req: Request) {
       return NextResponse.json(
         { success: false, error: "All fields are required" },
         { status: 400 }
+      );
+    }
+
+    // Ensure server is configured with an admin secret
+    if (!SECRET_CODE) {
+      console.error("ADMIN_SECRET_CODE is not set in environment");
+      return NextResponse.json(
+        { success: false, error: "Server configuration error: missing ADMIN_SECRET_CODE" },
+        { status: 500 }
       );
     }
 
