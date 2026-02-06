@@ -2,6 +2,7 @@ import { db } from "@/db/db";
 import { team } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
@@ -36,6 +37,7 @@ export async function PUT(request: Request) {
     const { image, name, role, bio, order } = body;
 
     const [updated] = await db.update(team).set({ image, name, role, bio, ...(order !== undefined && { order }) }).where(eq(team.id, id)).returning();
+    revalidatePath("/");
     return NextResponse.json({ member: updated });
   } catch (e) {
     console.error(e);
@@ -50,6 +52,7 @@ export async function DELETE(request: Request) {
     if (!id) throw new Error("id required");
 
     await db.delete(team).where(eq(team.id, id));
+    revalidatePath("/");
     return NextResponse.json({ success: true });
   } catch (e) {
     console.error(e);

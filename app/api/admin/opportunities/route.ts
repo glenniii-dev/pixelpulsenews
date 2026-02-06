@@ -2,6 +2,7 @@ import { db } from "@/db/db";
 import { opportunities } from "@/db/schema";
 import { desc, eq, asc } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
@@ -64,6 +65,8 @@ export async function PUT(request: Request) {
       .where(eq(opportunities.id, id))
       .returning();
 
+    revalidatePath("/");
+
     return NextResponse.json({ opportunity: updated });
   } catch (e) {
     console.error(e);
@@ -77,6 +80,8 @@ export async function DELETE(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
     if (!id) throw new Error("id required");
+
+    revalidatePath("/");
 
     await db.delete(opportunities).where(eq(opportunities.id, id));
 
