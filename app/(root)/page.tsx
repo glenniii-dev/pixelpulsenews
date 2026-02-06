@@ -2,7 +2,7 @@ import TeamMember from "@/components/cards/TeamMember";
 import { Button } from "@/components/ui/button"
 import { db } from "@/db/db";
 import { team, opportunities as oppTable } from "@/db/schema";
-import { asc, desc } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { FaGraduationCap, FaMicroscope, FaNewspaper } from "react-icons/fa";
 import type Opportunity from "@/types/Opportunity";
@@ -11,10 +11,10 @@ export default async function page() {
   const topTeam = await db.select().from(team).orderBy(asc(team.order)).limit(3);
   let allOpportunities = [];
   try {
-    allOpportunities = await db.select().from(oppTable).orderBy(asc(oppTable.order));
+    allOpportunities = await db.select().from(oppTable).where(eq(oppTable.isPublished, true)).orderBy(asc(oppTable.order));
   } catch (err) {
     console.error("Opportunities order query failed, falling back to createdAt:", err);
-    allOpportunities = await db.select().from(oppTable).orderBy(desc(oppTable.createdAt));
+    allOpportunities = await db.select().from(oppTable).where(eq(oppTable.isPublished, true)).orderBy(desc(oppTable.createdAt));
   }
 
   return (
