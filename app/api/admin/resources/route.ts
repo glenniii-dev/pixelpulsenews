@@ -2,6 +2,7 @@ import { db } from "@/db/db";
 import { resources } from "@/db/schema";
 import { desc, eq, asc } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
@@ -22,6 +23,8 @@ export async function POST(request: Request) {
       .insert(resources)
       .values({ title, slug, content, order: order ?? "0", isPublished: isPublished ?? false })
       .returning();
+    
+    revalidatePath("/admin/dashboard");
     return NextResponse.json({ resource: newItem }, { status: 201 });
   } catch (e) {
     console.error(e);
@@ -43,6 +46,7 @@ export async function PUT(request: Request) {
     if (isPublished !== undefined) setObj.isPublished = isPublished;
 
     const [updated] = await db.update(resources).set(setObj).where(eq(resources.id, id)).returning();
+    revalidatePath("/admin/dashboard");
     return NextResponse.json({ resource: updated });
   } catch (e) {
     console.error(e);
@@ -57,6 +61,7 @@ export async function DELETE(request: Request) {
     if (!id) throw new Error("id required");
 
     await db.delete(resources).where(eq(resources.id, id));
+    revalidatePath("/admin/dashboard");
     return NextResponse.json({ success: true });
   } catch (e) {
     console.error(e);
