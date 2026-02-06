@@ -71,7 +71,7 @@ export default function Page() {
       : "/api/admin/opportunities";
 
     try {
-      const payload = editingOpportunity ? formData : { ...formData, order: String(opportunities.length) };
+      const payload = editingOpportunity ? formData : { ...formData, order: opportunities.length };
 
       const res = await fetch(url, {
         method,
@@ -173,7 +173,7 @@ export default function Page() {
         if (!res.ok) throw new Error("Update failed");
       }
 
-      setOpportunities(sorted.map((m, i) => ({ ...m, order: i.toString() })));
+      setOpportunities(sorted.map((m, i) => ({ ...m, order: i })));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Move error");
     }

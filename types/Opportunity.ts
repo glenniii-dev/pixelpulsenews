@@ -5,7 +5,7 @@ type Opportunity = {
     date: string;
     location: string;
     isPublished: boolean;
-    order?: string;
+    order?: number;
     createdAt: Date;
 }
 
